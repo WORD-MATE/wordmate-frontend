@@ -10,7 +10,7 @@ const sampleNotifications = [
   {
     id: '1',
     title: '대결 초대',
-    body: '민지우님이 대결방에 초대했어요. 코드 K7Q2MX',
+    body: '양지우님이 대결방에 초대했어요. 코드 K7Q2MX',
     time: '55분 전',
     read: false,
   },
