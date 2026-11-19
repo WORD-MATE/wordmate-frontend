@@ -94,6 +94,37 @@ fix :: 로그인 응답 처리 오류 수정 #12
 | `test`     | 테스트 코드 추가 및 수정      |
 | `chore`    | 기타 작업                     |
 
+## 디자인 토큰
+
+Figma Design System 페이지에서 추출한 값을 `src/index.css`의 `@theme`에 정의했습니다.
+색상은 Figma의 '역할별 색상'(semantic alias) 17개를 그대로 옮긴 것이므로, 팔레트 원색 대신 역할 토큰을 사용합니다.
+
+| 토큰                  | 값        | Figma 역할   |
+| --------------------- | --------- | ------------ |
+| `background`          | `#FFFFFF` | 기본배경     |
+| `background-card`     | `#F8F9FA` | 카드배경     |
+| `background-subtle`   | `#EFF1F3` | 보조배경     |
+| `background-disabled` | `#E6E8EB` | 비활성배경   |
+| `border-default`      | `#E5E7EA` | 기본테두리   |
+| `border-input`        | `#C4C9CF` | 입력테두리   |
+| `content`             | `#121417` | 기본문자     |
+| `content-secondary`   | `#5B626C` | 보조문자     |
+| `content-muted`       | `#737A83` | 흐린문자     |
+| `content-on-accent`   | `#0B0C0E` | 강조색위문자 |
+| `overlay`             | `#0A0C0E` | 오버레이     |
+| `brand`               | `#B6E02A` | 대표색       |
+| `favorite`            | `#C99000` | 즐겨찾기     |
+| `learning`            | `#D48500` | 학습중       |
+| `alert`               | `#F03E3E` | 알림         |
+| `error`               | `#C13D2C` | 오류         |
+| `info`                | `#1F66E0` | 안내         |
+
+모서리 반경은 `rounded-xs`(2px) `rounded-sm`(4px) `rounded-md`(6px) `rounded-lg`(8px) `rounded-xl`(11px) `rounded-2xl`(12px) `rounded-full`(48px)로 정의했습니다.
+
+폰트는 Pretendard를 사용하며 `index.html`에서 CDN으로 불러옵니다.
+
+간격은 Figma에서 쓰인 값이 모두 0.25rem 배수라 Tailwind 기본 spacing 스케일을 그대로 사용합니다.
+
 ## Issue 및 PR 규칙
 
 모든 개발 작업은 Issue를 먼저 생성합니다.
