@@ -1,11 +1,12 @@
 import { Route, Routes } from 'react-router-dom'
-import HomePage from '@/pages/HomePage'
-import { paths } from '@/routes/paths'
+import AppLayout from '@/components/layout/AppLayout'
 
 export default function App() {
   return (
     <Routes>
-      <Route path={paths.home} element={<HomePage />} />
+      <Route element={<AppLayout />}>
+        <Route path="*" />
+      </Route>
     </Routes>
   )
 }
