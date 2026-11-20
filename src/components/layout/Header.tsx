@@ -44,7 +44,7 @@ export default function Header({
 
   return (
     <header className="border-border-default bg-background border-b">
-      <div className="mx-auto flex h-18 w-full min-w-[900px] max-w-[1248px] items-center gap-4 px-6">
+      <div className="mx-auto flex h-18 w-full max-w-[1248px] min-w-[900px] items-center gap-4 px-6">
         <NavLink
           to={paths.home}
           className="text-content shrink-0 text-2xl font-extrabold tracking-tight"
