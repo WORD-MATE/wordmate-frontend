@@ -17,6 +17,7 @@ export default function HeaderMenu({
 }: HeaderMenuProps) {
   const [open, setOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
   const panelId = useId()
 
   useEffect(() => {
@@ -26,7 +27,10 @@ export default function HeaderMenu({
       if (!containerRef.current?.contains(event.target as Node)) setOpen(false)
     }
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpen(false)
+      if (event.key === 'Escape') {
+        setOpen(false)
+        triggerRef.current?.focus()
+      }
     }
 
     document.addEventListener('pointerdown', handlePointerDown)
@@ -38,8 +42,15 @@ export default function HeaderMenu({
   }, [open])
 
   return (
-    <div ref={containerRef} className="relative">
+    <div
+      ref={containerRef}
+      className="relative"
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setOpen(false)
+      }}
+    >
       <button
+        ref={triggerRef}
         type="button"
         aria-label={label}
         aria-expanded={open}
@@ -53,7 +64,7 @@ export default function HeaderMenu({
       {open && (
         <div
           id={panelId}
-          className={`border-border-default absolute top-full right-0 z-20 mt-2 rounded-xl border bg-white py-2 shadow-lg ${panelClassName}`}
+          className={`border-border-default absolute top-full z-20 mt-2 rounded-xl border bg-background shadow-lg ${panelClassName}`}
         >
           {children(() => setOpen(false))}
         </div>
