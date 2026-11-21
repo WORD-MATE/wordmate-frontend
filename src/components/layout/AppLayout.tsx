@@ -25,7 +25,7 @@ export default function AppLayout() {
         notifications={sampleNotifications}
         wrongNoteCount={7}
       />
-      <main className="mx-auto w-full max-w-[1240px] px-10 pt-8 pb-16">
+      <main className="mx-auto w-full max-w-[1240px] px-4 pt-8 pb-16 min-[1240px]:px-10 sm:px-6">
         <Outlet />
       </main>
     </div>
