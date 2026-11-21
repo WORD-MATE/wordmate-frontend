@@ -26,6 +26,17 @@ import trophy22 from '@/assets/icons/trophy-22.svg'
 import vocabularyBook22 from '@/assets/icons/vocabulary-book-22.svg'
 import volume18 from '@/assets/icons/volume-18.svg'
 
+function BoxedIcon({ src, size }: { src: string; size: number }) {
+  return (
+    <span
+      className="flex shrink-0 items-center justify-center"
+      style={{ width: size, height: size }}
+    >
+      <img src={src} alt="" aria-hidden="true" />
+    </span>
+  )
+}
+
 export function BrandLockup() {
   return <img src={brandLockup} alt="wordmate" width={121.952} height={19.11} />
 }
@@ -123,21 +134,13 @@ export function ProfileIcon() {
 }
 
 export function WrongNotesSmallIcon() {
-  return <ClippedIcon src={wrongNotes18} size={18} inset="8.33%" />
+  return <BoxedIcon src={wrongNotes18} size={18} />
 }
 
 export function TodaySentenceIcon() {
-  return <ClippedIcon src={todaySentence18} size={18} inset="1.35% 1.33% 1.34% 1.33%" />
+  return <BoxedIcon src={todaySentence18} size={18} />
 }
 
 export function LogoutIcon() {
-  return (
-    <span className="relative block size-[18px] overflow-clip">
-      <span className="absolute" style={{ inset: '15.08% 12.15% 14.99% 9.16%' }}>
-        <span className="absolute" style={{ inset: '-6.55% -5.82%' }}>
-          <img src={logout18} alt="" className="absolute inset-0 size-full" />
-        </span>
-      </span>
-    </span>
-  )
+  return <BoxedIcon src={logout18} size={18} />
 }
