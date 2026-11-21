@@ -21,7 +21,7 @@ export default function HeroCard() {
           <span className="font-semibold">일째</span>
         </p>
 
-        <h1 className="pt-2.5 text-[36px] leading-[46.8px] font-extrabold tracking-[-1.26px] text-[#0b0c0e]">
+        <h1 className="pt-2.5 text-[26px] leading-[36px] font-extrabold tracking-[-1.26px] break-keep text-[#0b0c0e] sm:text-[36px] sm:leading-[46.8px]">
           한국님, 오늘도
           <br />
           단어{' '}
