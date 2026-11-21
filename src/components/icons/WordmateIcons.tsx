@@ -1,3 +1,8 @@
+import history18 from '@/assets/icons/history-18.svg'
+import logout18 from '@/assets/icons/logout-18.svg'
+import profile18 from '@/assets/icons/profile-18.svg'
+import todaySentence18 from '@/assets/icons/today-sentence-18.svg'
+import wrongNotes18 from '@/assets/icons/wrong-notes-18.svg'
 import brandLockup from '@/assets/brand-lockup.svg'
 import arrowLeft22 from '@/assets/icons/arrow-left-22.svg'
 import arrowRight16Alt from '@/assets/icons/arrow-right-16-alt.svg'
@@ -144,6 +149,34 @@ export function VocabularyBookIcon() {
       </span>
       <span className="absolute" style={{ inset: '8% 28.86% 20.92% 22.68%' }}>
         <img src={vocabularyBookCover} alt="" className="absolute inset-0 size-full" />
+      </span>
+    </span>
+  )
+}
+
+export function HistoryIcon() {
+  return <img src={history18} alt="" aria-hidden="true" width={18} height={18} />
+}
+
+export function ProfileIcon() {
+  return <img src={profile18} alt="" aria-hidden="true" width={18} height={18} />
+}
+
+export function WrongNotesSmallIcon() {
+  return <ClippedIcon src={wrongNotes18} size={18} inset="8.33%" />
+}
+
+export function TodaySentenceIcon() {
+  return <ClippedIcon src={todaySentence18} size={18} inset="1.35% 1.33% 1.34% 1.33%" />
+}
+
+export function LogoutIcon() {
+  return (
+    <span className="relative block size-[18px] overflow-clip">
+      <span className="absolute" style={{ inset: '15.08% 12.15% 14.99% 9.16%' }}>
+        <span className="absolute" style={{ inset: '-6.55% -5.82%' }}>
+          <img src={logout18} alt="" className="absolute inset-0 size-full" />
+        </span>
       </span>
     </span>
   )
