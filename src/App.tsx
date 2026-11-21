@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import AppLayout from '@/components/layout/AppLayout'
 import LoginPage from '@/pages/auth/LoginPage'
 import SignUpTermsPage from '@/pages/auth/SignUpTermsPage'
-import HomePage from '@/pages/HomePage'
+import HomePage from '@/pages/home/HomePage'
 import { paths } from '@/routes/paths'
 
 export default function App() {
