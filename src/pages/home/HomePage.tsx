@@ -11,7 +11,7 @@ export default function HomePage() {
     <div className="flex flex-col gap-7">
       <HeroCard />
 
-      <div className="grid grid-cols-1 gap-x-3 gap-y-8 lg:grid-cols-[788px_360px]">
+      <div className="grid grid-cols-1 gap-x-3 gap-y-8 min-[1240px]:grid-cols-[788px_360px]">
         <DailySentenceCard />
         <MyRankingCard />
 

@@ -16,7 +16,7 @@ export default function TodayTasks() {
         오늘 할 일
       </h2>
 
-      <div className="grid grid-cols-2 gap-3 pt-3.5">
+      <div className="grid grid-cols-1 gap-3 pt-3.5 min-[640px]:grid-cols-2">
         {tasks.map(({ Icon, label, count }) => (
           <button
             key={label}

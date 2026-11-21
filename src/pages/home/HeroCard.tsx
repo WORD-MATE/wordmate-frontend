@@ -8,7 +8,7 @@ const wordCards = [
 export default function HeroCard() {
   return (
     <section
-      className="relative grid grid-cols-[718px_320px] gap-6 overflow-clip rounded-lg p-12"
+      className="relative grid grid-cols-1 gap-6 overflow-clip rounded-lg p-6 min-[1240px]:grid-cols-[718px_320px] min-[1240px]:p-12 sm:p-8"
       style={{
         backgroundImage: 'linear-gradient(151.37deg, #b6e02a 8.49%, #5ee6c4 91.51%)',
       }}
@@ -54,7 +54,7 @@ export default function HeroCard() {
         </div>
       </div>
 
-      <div className="relative h-[190px] self-center" aria-hidden="true">
+      <div className="relative hidden h-[190px] self-center min-[1240px]:block" aria-hidden="true">
         {wordCards.map(({ word, rotation, tone, left, top }) => (
           <div
             key={word}
