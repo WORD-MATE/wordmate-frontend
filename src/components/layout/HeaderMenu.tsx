@@ -64,7 +64,7 @@ export default function HeaderMenu({
       {open && (
         <div
           id={panelId}
-          className={`border-border-default bg-background absolute top-full z-20 mt-2 rounded-xl border shadow-lg ${panelClassName}`}
+          className={`border-border-input bg-background absolute top-full z-20 mt-2 rounded-lg border ${panelClassName}`}
         >
           {children(() => setOpen(false))}
         </div>

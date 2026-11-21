@@ -4,7 +4,13 @@ import {
   AvatarIcon,
   BrandLockup,
   ChevronDownIcon,
+  HistoryIcon,
+  LightningIcon,
+  LogoutIcon,
   NotificationIcon,
+  ProfileIcon,
+  TodaySentenceIcon,
+  WrongNotesSmallIcon,
 } from '@/components/icons/WordmateIcons'
 import HeaderMenu from '@/components/layout/HeaderMenu'
 import { paths } from '@/routes/paths'
@@ -32,15 +38,16 @@ const navItems = [
 ]
 
 const studyItems = [
-  { to: paths.wrongNotes, label: '오답노트' },
-  { to: paths.todaySentence, label: '오늘의 문장' },
-  { to: paths.studyLog, label: '학습 기록' },
+  { to: paths.wrongNotes, label: '오답노트', Icon: WrongNotesSmallIcon },
+  { to: paths.todaySentence, label: '오늘의 문장', Icon: TodaySentenceIcon },
+  { to: paths.studyLog, label: '학습 기록', Icon: HistoryIcon },
 ]
 
 const navLinkClass =
   'flex h-10 items-center gap-0.5 rounded-md px-3.5 text-[15px] font-bold tracking-[-0.15px] whitespace-nowrap'
 const menuItemClass =
-  'text-content hover:bg-background-subtle flex w-full items-center gap-2.5 px-4 py-2.5 text-sm'
+  'text-content-secondary hover:bg-background-subtle flex h-10 w-full items-center gap-2.5 rounded-sm px-2.5 text-sm leading-[21px] font-semibold tracking-[-0.15px]'
+const menuPanelClass = 'min-w-[220px] p-1.5 drop-shadow-[0px_16px_20px_rgba(0,0,0,0.35)]'
 
 export default function Header({
   userName,
@@ -56,7 +63,7 @@ export default function Header({
         <HeaderMenu
           label="전체 메뉴"
           triggerClassName="hover:bg-background-subtle text-content flex size-10 shrink-0 items-center justify-center rounded-md min-[1240px]:hidden"
-          panelClassName="left-0 right-auto w-52"
+          panelClassName={`${menuPanelClass} right-auto left-0`}
           trigger={() => <Menu size={22} />}
         >
           {(close) => (
@@ -72,17 +79,18 @@ export default function Header({
                   {label}
                 </NavLink>
               ))}
-              <div className="border-border-default mt-1 border-t pt-1">
-                <p className="text-content-muted px-4 pt-2 pb-1 text-xs font-bold">학습</p>
-                {studyItems.map(({ to, label }) => (
-                  <NavLink key={to} to={to} onClick={close} className={menuItemClass}>
-                    <span className="flex-1 text-left">{label}</span>
-                    {to === paths.wrongNotes && wrongNoteCount > 0 && (
-                      <span className="text-content-muted text-xs">{wrongNoteCount}</span>
-                    )}
-                  </NavLink>
-                ))}
-              </div>
+              <div className="bg-border-default my-1.5 h-px" />
+              {studyItems.map(({ to, label, Icon }) => (
+                <NavLink key={to} to={to} onClick={close} className={menuItemClass}>
+                  <Icon />
+                  {label}
+                  {to === paths.wrongNotes && wrongNoteCount > 0 && (
+                    <span className="text-content-muted ml-auto text-xs leading-[18px] font-semibold">
+                      {wrongNoteCount}
+                    </span>
+                  )}
+                </NavLink>
+              ))}
             </>
           )}
         </HeaderMenu>
@@ -115,7 +123,7 @@ export default function Header({
           <HeaderMenu
             label="학습 메뉴"
             triggerClassName={`${navLinkClass} text-content-secondary hover:text-content aria-expanded:bg-background-subtle aria-expanded:text-content`}
-            panelClassName="left-0 right-auto w-48"
+            panelClassName={`${menuPanelClass} right-auto left-0`}
             trigger={(open) => (
               <>
                 학습
@@ -126,11 +134,14 @@ export default function Header({
             )}
           >
             {(close) =>
-              studyItems.map(({ to, label }) => (
+              studyItems.map(({ to, label, Icon }) => (
                 <NavLink key={to} to={to} onClick={close} className={menuItemClass}>
-                  <span className="flex-1 text-left">{label}</span>
+                  <Icon />
+                  {label}
                   {to === paths.wrongNotes && wrongNoteCount > 0 && (
-                    <span className="text-content-muted text-xs">{wrongNoteCount}</span>
+                    <span className="text-content-muted ml-auto text-xs leading-[18px] font-semibold">
+                      {wrongNoteCount}
+                    </span>
                   )}
                 </NavLink>
               ))
@@ -142,7 +153,7 @@ export default function Header({
           <HeaderMenu
             label={unreadCount > 0 ? `알림 ${unreadCount}개 안 읽음` : '알림'}
             triggerClassName="text-content hover:bg-background-subtle relative flex size-10 items-center justify-center rounded-md"
-            panelClassName="right-0 w-[min(20rem,calc(100vw-2rem))] py-0"
+            panelClassName="right-0 w-[min(380px,calc(100vw-2rem))] overflow-clip shadow-[0px_16px_40px_0px_rgba(0,0,0,0.35)]"
             trigger={() => (
               <>
                 <NotificationIcon />
@@ -154,11 +165,22 @@ export default function Header({
           >
             {() => (
               <>
-                <div className="border-border-default flex items-center justify-between border-b px-4 py-3">
-                  <p className="text-content text-sm font-bold">
-                    알림 <span className="text-brand-strong">{unreadCount}</span>
+                <div className="border-border-default flex h-[52px] items-center justify-between border-b pr-2 pl-4">
+                  <p className="text-content flex items-start gap-1.5 text-[15px] leading-[22.5px] font-bold tracking-[-0.15px]">
+                    알림
+                    <span
+                      className="self-stretch"
+                      style={{
+                        backgroundImage: 'linear-gradient(180deg, rgba(0,0,0,0) 60%, #b6e02a 60%)',
+                      }}
+                    >
+                      {unreadCount}
+                    </span>
                   </p>
-                  <button type="button" className="text-content-muted hover:text-content text-xs">
+                  <button
+                    type="button"
+                    className="text-content-secondary hover:bg-background-subtle flex h-9 items-center rounded-sm px-3.5 text-[13px] leading-[19.5px] font-bold"
+                  >
                     모두 읽음
                   </button>
                 </div>
@@ -168,29 +190,32 @@ export default function Header({
                     새로운 알림이 없어요
                   </p>
                 ) : (
-                  <ul className="max-h-80 overflow-y-auto">
+                  <ul className="max-h-[440px] overflow-y-auto p-1.5">
                     {notifications.map((notification) => (
-                      <li
-                        key={notification.id}
-                        className="hover:bg-background-subtle flex gap-3 px-4 py-3.5"
-                      >
-                        <span className="bg-brand mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full text-sm">
-                          ⚡
-                        </span>
-                        <div className="min-w-0 flex-1">
-                          <p className="text-content flex items-center gap-1 text-sm font-bold">
-                            {notification.title}
-                            {!notification.read && (
-                              <span className="bg-alert size-1.5 shrink-0 rounded-full" />
-                            )}
-                          </p>
-                          <p className="text-content-secondary mt-1 text-xs">{notification.body}</p>
-                          <p className="text-content-muted mt-1.5 text-xs">{notification.time}</p>
+                      <li key={notification.id} className="relative">
+                        <div className="hover:bg-background-subtle flex gap-3.5 rounded-md px-2.5 py-3">
+                          <span className="bg-content/7 flex size-10 shrink-0 items-center justify-center rounded-md">
+                            <LightningIcon />
+                          </span>
+                          <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                            <p className="text-content flex items-center gap-1.5 text-[15px] leading-[22.5px] font-bold">
+                              {notification.title}
+                              {!notification.read && (
+                                <span className="bg-alert size-1.5 shrink-0 rounded-[3px]" />
+                              )}
+                            </p>
+                            <p className="text-content-secondary truncate text-sm leading-[21px]">
+                              {notification.body}
+                            </p>
+                            <p className="text-content-muted text-xs leading-[18px]">
+                              {notification.time}
+                            </p>
+                          </div>
                         </div>
                         {!notification.read && (
                           <button
                             type="button"
-                            className="text-content-muted hover:text-content shrink-0 self-start text-xs"
+                            className="text-content-muted hover:text-content absolute top-3 right-2.5 text-xs leading-[22px] font-semibold"
                           >
                             읽음
                           </button>
@@ -206,7 +231,7 @@ export default function Header({
           <HeaderMenu
             label="내 메뉴"
             triggerClassName="hover:bg-background-subtle flex h-10 items-center gap-0.5 rounded-md pr-2 pl-1"
-            panelClassName="right-0 w-56 py-0"
+            panelClassName={`${menuPanelClass} right-0 w-[220px]`}
             trigger={(open) => (
               <span className="flex items-center gap-2">
                 <span className="bg-content/7 flex size-[30px] items-center justify-center overflow-clip rounded-md">
@@ -223,15 +248,26 @@ export default function Header({
           >
             {(close) => (
               <>
-                <div className="border-border-default border-b px-4 py-3">
-                  <p className="text-content text-sm font-bold">{userName}</p>
-                  <p className="text-content-muted mt-1 text-xs">{userCaption}</p>
+                <div className="border-border-default border-b px-2.5 pt-2 pb-2.5">
+                  <p className="text-content text-[15px] leading-[22.5px] font-bold tracking-[-0.15px]">
+                    {userName}
+                  </p>
+                  <p className="text-content-muted text-xs leading-[18px] tracking-[-0.15px]">
+                    {userCaption}
+                  </p>
                 </div>
-                <NavLink to={paths.myPage} onClick={close} className={`${menuItemClass} py-3`}>
-                  마이페이지
-                </NavLink>
-                <div className="border-border-default border-t">
-                  <button type="button" className={`${menuItemClass} py-3`}>
+                <div className="pt-1">
+                  <NavLink to={paths.myPage} onClick={close} className={menuItemClass}>
+                    <ProfileIcon />
+                    마이페이지
+                  </NavLink>
+                </div>
+                <div className="px-1 pt-1.5">
+                  <div className="bg-border-default h-px" />
+                </div>
+                <div className="pt-1.5">
+                  <button type="button" className={menuItemClass}>
+                    <LogoutIcon />
                     로그아웃
                   </button>
                 </div>
