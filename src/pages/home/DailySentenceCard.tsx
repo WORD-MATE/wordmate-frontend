@@ -2,7 +2,7 @@ import { ArrowRightIcon } from '@/components/icons/WordmateIcons'
 
 export default function DailySentenceCard() {
   return (
-    <section className="bg-background-card flex flex-col rounded-lg px-8 py-7">
+    <section className="bg-background-card desktop:px-8 desktop:py-7 flex flex-col rounded-lg px-5 py-5">
       <p className="text-content-muted text-[13px] leading-[19.5px] font-semibold tracking-[-0.15px]">
         오늘의 문장 · 11월 8일
       </p>

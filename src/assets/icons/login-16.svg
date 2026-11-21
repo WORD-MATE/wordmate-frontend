@@ -1,17 +1,17 @@
-<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Wordmate/Icons/Login/16" clip-path="url(#clip0_0_98)">
-<path id="Vector" d="M11.4286 0H0V2.28571H11.4286V0Z" fill="#121417"/>
-<path id="Vector_2" d="M4.57143 2.28571H-3.57628e-07V4.57143H4.57143V2.28571Z" fill="#121417"/>
-<path id="Vector_3" d="M13.7143 2.28571H9.14286V4.57143H13.7143V2.28571Z" fill="#121417"/>
-<path id="Vector_4" d="M4.57143 4.57143H-3.57628e-07V6.85714H4.57143V4.57143Z" fill="#121417"/>
-<path id="Vector_5" d="M16 4.57143H11.4286V6.85714H16V4.57143Z" fill="#121417"/>
-<path id="Vector_6" d="M4.57143 6.85714H-3.57628e-07V9.14286H4.57143V6.85714Z" fill="#121417"/>
-<path id="Vector_7" d="M16 6.85714H11.4286V9.14286H16V6.85714Z" fill="#121417"/>
-<path id="Vector_8" d="M4.57143 9.14286H-3.57628e-07V11.4286H4.57143V9.14286Z" fill="#121417"/>
-<path id="Vector_9" d="M16 9.14286H11.4286V11.4286H16V9.14286Z" fill="#121417"/>
-<path id="Vector_10" d="M4.57143 11.4286H-3.57628e-07V13.7143H4.57143V11.4286Z" fill="#121417"/>
-<path id="Vector_11" d="M13.7143 11.4286H9.14286V13.7143H13.7143V11.4286Z" fill="#121417"/>
-<path id="Vector_12" d="M11.4286 13.7143H-3.57628e-07V16H11.4286V13.7143Z" fill="#121417"/>
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_0_98)">
+<path d="M11.4286 0H0V2.28571H11.4286V0Z" fill="#121417"/>
+<path d="M4.57143 2.28571H-3.57628e-07V4.57143H4.57143V2.28571Z" fill="#121417"/>
+<path d="M13.7143 2.28571H9.14286V4.57143H13.7143V2.28571Z" fill="#121417"/>
+<path d="M4.57143 4.57143H-3.57628e-07V6.85714H4.57143V4.57143Z" fill="#121417"/>
+<path d="M16 4.57143H11.4286V6.85714H16V4.57143Z" fill="#121417"/>
+<path d="M4.57143 6.85714H-3.57628e-07V9.14286H4.57143V6.85714Z" fill="#121417"/>
+<path d="M16 6.85714H11.4286V9.14286H16V6.85714Z" fill="#121417"/>
+<path d="M4.57143 9.14286H-3.57628e-07V11.4286H4.57143V9.14286Z" fill="#121417"/>
+<path d="M16 9.14286H11.4286V11.4286H16V9.14286Z" fill="#121417"/>
+<path d="M4.57143 11.4286H-3.57628e-07V13.7143H4.57143V11.4286Z" fill="#121417"/>
+<path d="M13.7143 11.4286H9.14286V13.7143H13.7143V11.4286Z" fill="#121417"/>
+<path d="M11.4286 13.7143H-3.57628e-07V16H11.4286V13.7143Z" fill="#121417"/>
 </g>
 <defs>
 <clipPath id="clip0_0_98">
