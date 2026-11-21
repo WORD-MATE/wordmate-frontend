@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 @theme {
-  --breakpoint-desktop: 1240px;
+  --breakpoint-desktop: 77.5rem;
   --font-sans:
     'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
     'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
