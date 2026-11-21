@@ -11,7 +11,7 @@ test('홈 경로에서 공통 레이아웃과 메인화면을 보여준다', () 
 
   expect(screen.getByRole('navigation', { name: '주요 메뉴' })).toBeInTheDocument()
   expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('한국님, 오늘도')
-  expect(screen.getByRole('heading', { name: '오늘 할 일' })).toBeInTheDocument()
+  expect(screen.getAllByRole('heading', { name: '오늘 할 일' })).toHaveLength(2)
   expect(screen.getByRole('heading', { name: '이어서 학습' })).toBeInTheDocument()
   expect(screen.getByRole('heading', { name: '일일 미션' })).toBeInTheDocument()
 })
