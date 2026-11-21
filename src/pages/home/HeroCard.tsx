@@ -8,20 +8,20 @@ const wordCards = [
 export default function HeroCard() {
   return (
     <section
-      className="relative grid grid-cols-1 gap-6 overflow-clip rounded-lg p-6 min-[1240px]:grid-cols-[718px_320px] min-[1240px]:p-12 sm:p-8"
+      className="desktop:grid-cols-[minmax(0,1fr)_320px] desktop:p-12 relative grid grid-cols-1 gap-6 overflow-clip rounded-lg p-5 sm:p-8"
       style={{
         backgroundImage: 'linear-gradient(151.37deg, #b6e02a 8.49%, #5ee6c4 91.51%)',
       }}
     >
       <div className="flex flex-col self-center">
-        <p className="flex items-center gap-1.5 text-[13px] leading-[19.5px] tracking-[-0.15px] text-[rgba(11,12,14,0.65)]">
+        <p className="desktop:flex hidden items-center gap-1.5 text-[13px] leading-[19.5px] tracking-[-0.15px] text-[rgba(11,12,14,0.65)]">
           <StreakFire />
           <span className="font-semibold">연속 학습</span>
           <span className="font-black">7</span>
           <span className="font-semibold">일째</span>
         </p>
 
-        <h1 className="pt-2.5 text-[26px] leading-[36px] font-extrabold tracking-[-1.26px] break-keep text-[#0b0c0e] sm:text-[36px] sm:leading-[46.8px]">
+        <h1 className="desktop:pt-2.5 desktop:text-[36px] desktop:leading-[46.8px] text-[24px] leading-[31px] font-extrabold tracking-[-1.26px] break-keep text-[#0b0c0e]">
           한국님, 오늘도
           <br />
           단어{' '}
@@ -40,14 +40,14 @@ export default function HeroCard() {
         <div className="flex gap-2 pt-[22px]">
           <button
             type="button"
-            className="flex h-12 items-center justify-center gap-2 rounded-md bg-[#0b0c0e] px-5 text-[15px] leading-[22.5px] font-bold tracking-[-0.15px] text-white"
+            className="desktop:flex-none desktop:px-5 flex h-12 flex-1 items-center justify-center gap-2 rounded-md bg-[#0b0c0e] px-3 text-[15px] leading-[22.5px] font-bold tracking-[-0.15px] text-white"
           >
             학습하기
             <ChevronRightAltIcon />
           </button>
           <button
             type="button"
-            className="flex h-12 items-center justify-center rounded-md bg-white/50 px-5 text-[15px] leading-[22.5px] font-bold tracking-[-0.15px] text-[#0b0c0e]"
+            className="desktop:flex-none desktop:px-5 flex h-12 flex-1 items-center justify-center rounded-md bg-white/50 px-3 text-[15px] leading-[22.5px] font-bold tracking-[-0.15px] text-[#0b0c0e]"
           >
             대결하기
           </button>

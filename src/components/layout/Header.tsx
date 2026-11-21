@@ -51,11 +51,12 @@ export default function Header({
   const unreadCount = notifications.filter((notification) => !notification.read).length
 
   return (
-    <header className="border-border-default sticky top-0 z-30 h-16 border-b bg-white/90 backdrop-blur-[14px]">
-      <div className="mx-auto flex h-[63px] w-full max-w-[1240px] items-center gap-4 px-4 min-[1240px]:gap-10 min-[1240px]:px-10 sm:px-6">
+    <header className="border-border-default sticky top-0 z-30 h-14 border-b bg-white/90 backdrop-blur-[14px] sm:h-16">
+      <div className="desktop:gap-10 desktop:px-10 mx-auto flex h-[55px] w-full max-w-[1240px] items-center gap-3 px-5 sm:h-[63px] sm:gap-4 sm:px-6">
         <HeaderMenu
+          className="relative hidden sm:block lg:hidden"
           label="전체 메뉴"
-          triggerClassName="hover:bg-background-subtle text-content flex size-10 shrink-0 items-center justify-center rounded-md min-[1240px]:hidden"
+          triggerClassName="hover:bg-background-subtle text-content flex size-10 shrink-0 items-center justify-center rounded-md lg:hidden"
           panelClassName="left-0 right-auto w-52"
           trigger={() => <Menu size={22} />}
         >
@@ -91,10 +92,7 @@ export default function Header({
           <BrandLockup />
         </NavLink>
 
-        <nav
-          aria-label="주요 메뉴"
-          className="hidden h-[63px] shrink-0 items-center gap-1 min-[1240px]:flex"
-        >
+        <nav aria-label="주요 메뉴" className="hidden h-[63px] shrink-0 items-center gap-1 lg:flex">
           {navItems.map(({ to, label }) => (
             <NavLink
               key={to}
@@ -119,7 +117,7 @@ export default function Header({
             trigger={(open) => (
               <>
                 학습
-                <span className={open ? 'rotate-180' : undefined}>
+                <span className={`inline-flex transition-transform ${open ? 'rotate-180' : ''}`}>
                   <ChevronDownIcon />
                 </span>
               </>
@@ -204,6 +202,7 @@ export default function Header({
           </HeaderMenu>
 
           <HeaderMenu
+            className="relative hidden sm:block"
             label="내 메뉴"
             triggerClassName="hover:bg-background-subtle flex h-10 items-center gap-0.5 rounded-md pr-2 pl-1"
             panelClassName="right-0 w-56 py-0"
@@ -215,7 +214,7 @@ export default function Header({
                 <span className="text-content-secondary hidden text-sm font-bold whitespace-nowrap sm:inline">
                   {userName}
                 </span>
-                <span className={open ? 'rotate-180' : undefined}>
+                <span className={`inline-flex transition-transform ${open ? 'rotate-180' : ''}`}>
                   <ChevronDownIcon />
                 </span>
               </span>

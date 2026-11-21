@@ -16,12 +16,12 @@ export default function TodayTasks() {
         오늘 할 일
       </h2>
 
-      <div className="grid grid-cols-1 gap-3 pt-3.5 min-[640px]:grid-cols-2">
+      <div className="grid grid-cols-2 gap-2 pt-3.5">
         {tasks.map(({ Icon, label, count }) => (
           <button
             key={label}
             type="button"
-            className="bg-background-card flex items-center gap-3.5 rounded-lg p-5 text-left"
+            className="bg-background-card relative flex min-h-[148px] flex-col items-start gap-3 rounded-lg p-4 text-left lg:min-h-0 lg:flex-row lg:items-center lg:gap-3.5 lg:p-5"
           >
             <span className="bg-content/7 flex size-11 items-center justify-center rounded-md">
               <Icon />
@@ -39,7 +39,7 @@ export default function TodayTasks() {
                 </span>
               </span>
             </span>
-            <span className="ml-auto">
+            <span className="absolute top-4 right-3 lg:static lg:ml-auto">
               <ChevronRight20Icon />
             </span>
           </button>
