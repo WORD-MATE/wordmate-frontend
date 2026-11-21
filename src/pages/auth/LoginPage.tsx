@@ -48,28 +48,28 @@ const features = [
 
 export default function LoginPage() {
   return (
-    <div className="bg-background flex min-h-dvh flex-col p-4 min-[1600px]:flex-row">
-      <section className="bg-background-card relative flex min-w-0 flex-1 items-center overflow-clip rounded-lg px-6 pt-24 pb-14 sm:px-14">
-        <header className="absolute top-7 left-10">
+    <div className="bg-background flex min-h-dvh flex-col lg:flex-row lg:p-4">
+      <section className="bg-background-card relative flex min-h-dvh min-w-0 flex-1 items-center overflow-clip rounded-none px-6 pt-20 pb-28 lg:min-h-0 lg:rounded-lg lg:px-14 lg:pt-24 lg:pb-14">
+        <header className="absolute top-3 left-6 lg:top-7 lg:left-10">
           <BrandLockup />
         </header>
 
         <div className="flex min-w-0 flex-1 justify-center">
           <div className="w-[560px] max-w-full">
-            <p className="text-content-muted text-[13px] leading-[19.5px] font-bold tracking-[0.26px]">
+            <p className="text-content-muted hidden text-[13px] leading-[19.5px] font-bold tracking-[0.26px] lg:block">
               WORD MATE 사전 · 오늘의 단어
             </p>
 
             <div className="pt-6 pb-[18px]">
               <p
-                className="text-content inline-block text-[clamp(5rem,11vw,11rem)] leading-none font-extrabold tracking-[-0.05em]"
+                className="text-content inline-block text-[100px] leading-none font-extrabold tracking-[-0.05em] lg:text-[clamp(5rem,11vw,11rem)]"
                 style={{ backgroundImage: highlight }}
               >
                 mate
               </p>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="hidden items-center gap-2 lg:flex">
               <VolumeIcon />
               <span className="text-content-secondary text-[17px] leading-[25.5px] font-semibold tracking-[-0.15px]">
                 /meɪt/
@@ -79,7 +79,7 @@ export default function LoginPage() {
               </span>
             </div>
 
-            <ol className="flex flex-col gap-6 pt-11">
+            <ol aria-label="단어 뜻 예시" className="hidden flex-col gap-6 pt-11 lg:flex">
               {definitions.map((definition, index) => (
                 <li key={definition.term} className="flex gap-3.5">
                   <span className="bg-content text-background mt-px flex size-6 shrink-0 items-center justify-center rounded-sm text-[13px] leading-[19.5px] font-extrabold tracking-[-0.15px]">
@@ -100,12 +100,22 @@ export default function LoginPage() {
                 </li>
               ))}
             </ol>
+
+            <h1 className="text-content mt-6 text-[24px] leading-[31px] font-extrabold tracking-[-0.96px] break-keep lg:hidden">
+              매일 10분,
+              <br />
+              단어로{' '}
+              <span style={{ backgroundImage: highlight }} className="inline-block">
+                겨루고
+              </span>{' '}
+              성장하기
+            </h1>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto flex w-full max-w-[480px] shrink-0 flex-col justify-center gap-9 px-8 py-12 min-[1600px]:mx-0 min-[1600px]:mr-[185px] min-[1600px]:ml-[201px] min-[1600px]:w-[480px] min-[1600px]:max-w-none">
-        <h1 className="text-content text-[42px] leading-[53.76px] font-extrabold tracking-[-1.68px]">
+      <section className="contents lg:mx-0 lg:mr-[clamp(1rem,11.56vw,185px)] lg:ml-[clamp(1rem,12.56vw,201px)] lg:flex lg:w-[min(480px,35vw)] lg:max-w-none lg:shrink-0 lg:flex-col lg:justify-center lg:gap-9 lg:px-8 lg:py-12">
+        <h1 className="text-content hidden text-[42px] leading-[53.76px] font-extrabold tracking-[-1.68px] break-keep lg:block">
           매일 10분,
           <br />
           단어로{' '}
@@ -115,7 +125,7 @@ export default function LoginPage() {
           성장하기
         </h1>
 
-        <ul className="flex flex-col gap-3.5">
+        <ul className="hidden flex-col gap-3.5 lg:flex">
           {features.map(({ Icon, title, description }) => (
             <li key={title} className="flex items-center gap-3.5">
               <span className="bg-content/7 flex size-11 shrink-0 items-center justify-center rounded-lg">
@@ -135,7 +145,7 @@ export default function LoginPage() {
 
         <button
           type="button"
-          className="bg-background-subtle text-content hover:bg-background-disabled flex h-14 w-full max-w-[416px] items-center justify-center gap-2 rounded-md px-5 text-base leading-6 font-bold"
+          className="bg-background-subtle text-content hover:bg-background-disabled fixed right-6 bottom-6 left-6 z-20 flex h-14 items-center justify-center gap-2 rounded-md px-5 text-base leading-6 font-bold lg:static lg:w-full lg:max-w-[416px]"
         >
           <LoginIcon />
           DataGSM으로 로그인
