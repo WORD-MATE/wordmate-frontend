@@ -44,7 +44,7 @@ export default function Header({
 
   return (
     <header className="border-border-default bg-background border-b">
-      <div className="mx-auto flex h-18 w-full max-w-[1248px] items-center gap-4 overflow-x-auto px-6">
+      <div className="mx-auto flex h-18 w-full max-w-[1248px] min-w-[900px] items-center gap-4 px-6">
         <NavLink
           to={paths.home}
           className="text-content shrink-0 text-2xl font-extrabold tracking-tight"
@@ -99,7 +99,7 @@ export default function Header({
           <HeaderMenu
             label={unreadCount > 0 ? `알림 ${unreadCount}개` : '알림'}
             triggerClassName="text-content relative flex size-9 items-center justify-center rounded-lg hover:bg-background-subtle"
-            panelClassName="w-80 py-0"
+            panelClassName="right-0 w-80 py-0"
             trigger={() => (
               <>
                 <Bell size={20} />
@@ -163,7 +163,7 @@ export default function Header({
           <HeaderMenu
             label="내 계정 메뉴"
             triggerClassName="text-content flex items-center gap-2 rounded-lg py-1.5 pr-2 pl-1.5 text-sm whitespace-nowrap hover:bg-background-subtle"
-            panelClassName="w-56 py-0"
+            panelClassName="right-0 w-56 py-0"
             trigger={(open) => (
               <>
                 <span className="bg-background-subtle flex size-7 items-center justify-center rounded-lg">

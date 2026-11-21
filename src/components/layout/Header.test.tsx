@@ -53,6 +53,19 @@ test('학습 메뉴를 열고 Escape로 닫는다', async () => {
 
   await user.keyboard('{Escape}')
   expect(trigger).toHaveAttribute('aria-expanded', 'false')
+  expect(trigger).toHaveFocus()
+})
+
+test('포커스가 다른 메뉴로 이동하면 열린 메뉴를 닫는다', async () => {
+  const user = userEvent.setup()
+  renderHeader()
+
+  const studyTrigger = screen.getByRole('button', { name: '학습 메뉴' })
+  await user.click(studyTrigger)
+  expect(studyTrigger).toHaveAttribute('aria-expanded', 'true')
+
+  await user.tab({ shift: true })
+  expect(studyTrigger).toHaveAttribute('aria-expanded', 'false')
 })
 
 test('읽지 않은 알림 개수를 알림 메뉴에 표시한다', async () => {
