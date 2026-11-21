@@ -137,7 +137,7 @@ export function VocabularyBookIcon() {
         <img src={vocabularyBookVector} alt="" className="absolute inset-0 size-full" />
       </span>
       <span
-        className="mask-intersect mask-luminance mask-no-clip mask-no-repeat absolute mask-position-[-6.997px_-3.352px] mask-size-[15.993px_17.871px]"
+        className="absolute mask-intersect mask-luminance mask-size-[15.993px_17.871px] mask-no-clip mask-position-[-6.997px_-3.352px] mask-no-repeat"
         style={{ inset: '30% 39.45% 59.85% 51.46%', maskImage: `url("${vocabularyBookMask}")` }}
       >
         <img src={vocabularyBookMasked} alt="" className="absolute inset-0 size-full" />
