@@ -25,6 +25,16 @@ import volumeWaves from '@/assets/icons/volume-18-waves.svg'
 import wrongNotes24 from '@/assets/icons/wrong-notes-24.svg'
 import streakFire from '@/assets/streak-fire.png'
 
+function ClippedIcon({ src, size, inset }: { src: string; size: number; inset: string }) {
+  return (
+    <span className="relative block overflow-clip" style={{ width: size, height: size }}>
+      <span className="absolute" style={{ inset }}>
+        <img src={src} alt="" className="absolute inset-0 size-full" />
+      </span>
+    </span>
+  )
+}
+
 export function BrandLockup() {
   return <img src={brandLockup} alt="wordmate" width={121.952} height={19.11} />
 }
@@ -86,59 +96,35 @@ export function StreakFire() {
 }
 
 export function LevelBadgeIcon() {
-  return (
-    <span className="relative block size-[16px] overflow-clip">
-      <img
-        src={levelBadge16}
-        alt=""
-        className="absolute inset-[5.13%_16.67%_4.17%_16.67%] size-full"
-      />
-    </span>
-  )
+  return <ClippedIcon src={levelBadge16} size={16} inset="5.13% 16.67% 4.17% 16.67%" />
 }
 
 export function WrongNotesIcon() {
-  return (
-    <span className="relative block size-[24px] overflow-clip">
-      <img src={wrongNotes24} alt="" className="absolute inset-[26.67%_3.95%] size-full" />
-    </span>
-  )
+  return <ClippedIcon src={wrongNotes24} size={24} inset="26.67% 3.95%" />
 }
 
 export function ReviewBookIcon() {
-  return (
-    <span className="relative block size-[24px] overflow-clip">
-      <img src={reviewBook24} alt="" className="absolute inset-[7.5%_7.69%_7.5%_7.38%] size-full" />
-    </span>
-  )
+  return <ClippedIcon src={reviewBook24} size={24} inset="7.5% 7.69% 7.5% 7.38%" />
 }
 
 export function LightningIcon() {
-  return (
-    <span className="relative block size-[22px] overflow-clip">
-      <img src={lightning22} alt="" className="absolute inset-[4%_17.53%_4%_17.52%] size-full" />
-    </span>
-  )
+  return <ClippedIcon src={lightning22} size={22} inset="4% 17.53% 4% 17.52%" />
 }
 
 export function TrophyIcon() {
-  return (
-    <span className="relative block size-[22px] overflow-clip">
-      <img src={trophy22} alt="" className="absolute inset-[8.29%_8.08%_8.33%_8.08%] size-full" />
-    </span>
-  )
+  return <ClippedIcon src={trophy22} size={22} inset="8.29% 8.08% 8.33% 8.08%" />
 }
 
 export function VolumeIcon() {
   return (
     <span className="relative block size-[18px] overflow-clip">
-      <img
-        src={volumeBody}
-        alt=""
-        className="absolute inset-[10.39%_36.59%_10.46%_3.25%] size-full"
-      />
-      <span className="absolute inset-[27.3%_7.38%_26.87%_74.04%]">
-        <img src={volumeWaves} alt="" className="absolute inset-[-9.09%_-22.42%] size-full" />
+      <span className="absolute" style={{ inset: '10.39% 36.59% 10.46% 3.25%' }}>
+        <img src={volumeBody} alt="" className="absolute inset-0 size-full" />
+      </span>
+      <span className="absolute" style={{ inset: '27.3% 7.38% 26.87% 74.04%' }}>
+        <span className="absolute" style={{ inset: '-9.09% -22.42%' }}>
+          <img src={volumeWaves} alt="" className="absolute inset-0 size-full" />
+        </span>
       </span>
     </span>
   )
@@ -147,22 +133,18 @@ export function VolumeIcon() {
 export function VocabularyBookIcon() {
   return (
     <span className="relative block size-[22px] overflow-clip">
-      <img
-        src={vocabularyBookVector}
-        alt=""
-        className="absolute inset-[19.84%_19.77%_9.08%_31.76%] size-full"
-      />
+      <span className="absolute" style={{ inset: '19.84% 19.77% 9.08% 31.76%' }}>
+        <img src={vocabularyBookVector} alt="" className="absolute inset-0 size-full" />
+      </span>
       <span
-        className="absolute inset-[30%_39.45%_59.85%_51.46%] mask-intersect mask-luminance mask-size-[15.993px_17.871px] mask-no-clip mask-position-[-6.997px_-3.352px] mask-no-repeat"
-        style={{ maskImage: `url("${vocabularyBookMask}")` }}
+        className="mask-intersect mask-luminance mask-no-clip mask-no-repeat absolute mask-position-[-6.997px_-3.352px] mask-size-[15.993px_17.871px]"
+        style={{ inset: '30% 39.45% 59.85% 51.46%', maskImage: `url("${vocabularyBookMask}")` }}
       >
         <img src={vocabularyBookMasked} alt="" className="absolute inset-0 size-full" />
       </span>
-      <img
-        src={vocabularyBookCover}
-        alt=""
-        className="absolute inset-[8%_28.86%_20.92%_22.68%] size-full"
-      />
+      <span className="absolute" style={{ inset: '8% 28.86% 20.92% 22.68%' }}>
+        <img src={vocabularyBookCover} alt="" className="absolute inset-0 size-full" />
+      </span>
     </span>
   )
 }
