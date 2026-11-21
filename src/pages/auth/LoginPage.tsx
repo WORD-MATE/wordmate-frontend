@@ -48,8 +48,8 @@ const features = [
 
 export default function LoginPage() {
   return (
-    <div className="bg-background flex min-h-dvh flex-col p-4 lg:flex-row">
-      <section className="bg-background-card relative flex flex-1 items-center rounded-lg px-14 pt-24 pb-14">
+    <div className="bg-background flex min-h-dvh flex-col p-4 min-[1600px]:flex-row">
+      <section className="bg-background-card relative flex flex-1 items-center rounded-lg px-6 pt-24 pb-14 sm:px-14">
         <header className="absolute top-7 left-10">
           <BrandLockup />
         </header>
@@ -62,7 +62,7 @@ export default function LoginPage() {
 
             <div className="pt-6 pb-[18px]">
               <p
-                className="text-content inline-block text-[176px] leading-[176px] font-extrabold tracking-[-8.8px]"
+                className="text-content inline-block text-[clamp(5rem,11vw,11rem)] leading-none font-extrabold tracking-[-0.05em]"
                 style={{ backgroundImage: highlight }}
               >
                 mate
@@ -104,7 +104,7 @@ export default function LoginPage() {
         </div>
       </section>
 
-      <section className="flex w-[480px] max-w-full shrink-0 flex-col justify-center gap-9 px-8 py-12 lg:mr-[185px] lg:ml-[201px]">
+      <section className="mx-auto flex w-full max-w-[480px] shrink-0 flex-col justify-center gap-9 px-8 py-12 min-[1600px]:mx-0 min-[1600px]:mr-[185px] min-[1600px]:ml-[201px] min-[1600px]:w-[480px] min-[1600px]:max-w-none">
         <h1 className="text-content text-[42px] leading-[53.76px] font-extrabold tracking-[-1.68px]">
           매일 10분,
           <br />
