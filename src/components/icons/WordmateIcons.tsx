@@ -15,6 +15,8 @@ import login16 from '@/assets/icons/login-16.svg'
 import notification22 from '@/assets/icons/notification-22.svg'
 import rankUp18 from '@/assets/icons/rank-up-18.svg'
 import reviewBook24 from '@/assets/icons/review-book-24.svg'
+import wrongNotes24 from '@/assets/icons/wrong-notes-24.svg'
+import streakFire from '@/assets/streak-fire.png'
 import trophy22 from '@/assets/icons/trophy-22.svg'
 import vocabularyBook22 from '@/assets/icons/vocabulary-book-22.svg'
 import volume18 from '@/assets/icons/volume-18.svg'
@@ -39,12 +41,56 @@ export function ArrowRightAltIcon() {
   return <img src={arrowRight16Alt} alt="" aria-hidden="true" width={16} height={16} />
 }
 
+export function AvatarIcon() {
+  return <img src={avatar19} alt="" aria-hidden="true" width={19} height={19} />
+}
+
+export function AvatarSmallIcon() {
+  return <img src={avatar17} alt="" aria-hidden="true" width={17} height={17} />
+}
+
 export function CheckIcon() {
   return <img src={check14} alt="" aria-hidden="true" width={14} height={14} />
 }
 
 export function ChevronDownIcon() {
   return <img src={chevronDown16} alt="" aria-hidden="true" width={16} height={16} />
+}
+
+export function ChevronRightIcon() {
+  return <img src={chevronRight18} alt="" aria-hidden="true" width={18} height={18} />
+}
+
+export function ChevronRightAltIcon() {
+  return <img src={chevronRight18Alt} alt="" aria-hidden="true" width={18} height={18} />
+}
+
+export function ChevronRight20Icon() {
+  return <img src={chevronRight20} alt="" aria-hidden="true" width={20} height={20} />
+}
+
+export function LevelBadgeIcon() {
+  return <img src={levelBadge16} alt="" aria-hidden="true" width={16} height={16} />
+}
+
+export function NotificationIcon() {
+  return <img src={notification22} alt="" aria-hidden="true" width={22} height={22} />
+}
+
+export function RankUpIcon() {
+  return <img src={rankUp18} alt="" aria-hidden="true" width={18} height={18} />
+}
+
+export function ReviewBookIcon() {
+  return <img src={reviewBook24} alt="" aria-hidden="true" width={24} height={24} />
+}
+
+export function WrongNotesIcon() {
+  return <img src={wrongNotes24} alt="" aria-hidden="true" width={24} height={24} />
+}
+
+export function StreakFire() {
+  return <img src={streakFire} alt="" aria-hidden="true" width={18} height={18} />
 }
 
 export function VolumeIcon() {
