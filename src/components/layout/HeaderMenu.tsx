@@ -5,6 +5,7 @@ type HeaderMenuProps = {
   trigger: (open: boolean) => ReactNode
   triggerClassName?: string
   panelClassName?: string
+  className?: string
   children: (close: () => void) => ReactNode
 }
 
@@ -13,6 +14,7 @@ export default function HeaderMenu({
   trigger,
   triggerClassName = '',
   panelClassName = '',
+  className = 'relative',
   children,
 }: HeaderMenuProps) {
   const [open, setOpen] = useState(false)
@@ -44,7 +46,7 @@ export default function HeaderMenu({
   return (
     <div
       ref={containerRef}
-      className="relative"
+      className={className}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setOpen(false)
       }}
@@ -64,7 +66,7 @@ export default function HeaderMenu({
       {open && (
         <div
           id={panelId}
-          className={`border-border-default bg-background absolute top-full z-20 mt-2 rounded-xl border shadow-lg ${panelClassName}`}
+          className={`border-border-input bg-background absolute top-full z-20 mt-2 rounded-lg border ${panelClassName}`}
         >
           {children(() => setOpen(false))}
         </div>

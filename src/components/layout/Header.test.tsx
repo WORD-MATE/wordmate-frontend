@@ -72,7 +72,7 @@ test('읽지 않은 알림 개수를 알림 메뉴에 표시한다', async () =>
   const user = userEvent.setup()
   renderHeader()
 
-  await user.click(screen.getByRole('button', { name: '알림 1개' }))
+  await user.click(screen.getByRole('button', { name: '알림 1개 안 읽음' }))
   expect(screen.getByText('대결 초대')).toBeInTheDocument()
 })
 
@@ -88,7 +88,7 @@ test('계정 메뉴에서 사용자 정보와 항목을 보여준다', async () 
   const user = userEvent.setup()
   renderHeader()
 
-  await user.click(screen.getByRole('button', { name: '내 계정 메뉴' }))
+  await user.click(screen.getByRole('button', { name: '내 메뉴' }))
   expect(screen.getByText('2학년 2반 · Lv.12 실버')).toBeInTheDocument()
   expect(screen.getByRole('link', { name: '마이페이지' })).toBeInTheDocument()
   expect(screen.getByRole('button', { name: '로그아웃' })).toBeInTheDocument()
