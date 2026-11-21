@@ -49,12 +49,12 @@ const features = [
 export default function LoginPage() {
   return (
     <div className="bg-background flex min-h-dvh flex-col p-4 lg:flex-row">
-      <section className="bg-background-card relative flex flex-1 items-center rounded-lg px-14 pt-24 pb-14">
+      <section className="bg-background-card relative flex min-w-0 flex-1 items-center overflow-clip rounded-lg px-6 pt-24 pb-14 sm:px-14">
         <header className="absolute top-7 left-10">
           <BrandLockup />
         </header>
 
-        <div className="flex flex-1 justify-center">
+        <div className="flex min-w-0 flex-1 justify-center">
           <div className="w-[560px] max-w-full">
             <p className="text-content-muted text-[13px] leading-[19.5px] font-bold tracking-[0.26px]">
               WORD MATE 사전 · 오늘의 단어
@@ -104,7 +104,7 @@ export default function LoginPage() {
         </div>
       </section>
 
-      <section className="flex w-[480px] max-w-full shrink-0 flex-col justify-center gap-9 px-8 py-12 lg:mr-[185px] lg:ml-[201px]">
+      <section className="flex w-full min-w-0 flex-col justify-center gap-9 px-6 py-12 sm:px-8 lg:mr-[185px] lg:ml-[201px] lg:w-[480px] lg:shrink-0">
         <h1 className="text-content text-[42px] leading-[53.76px] font-extrabold tracking-[-1.68px]">
           매일 10분,
           <br />
