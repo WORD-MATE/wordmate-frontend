@@ -54,7 +54,7 @@ export default function HeroCard() {
         </div>
       </div>
 
-      <div className="relative hidden h-[190px] self-center min-[1240px]:block" aria-hidden="true">
+      <div className="desktop:block relative hidden h-[190px] self-center" aria-hidden="true">
         {wordCards.map(({ word, rotation, tone, left, top }) => (
           <div
             key={word}

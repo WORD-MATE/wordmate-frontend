@@ -109,7 +109,7 @@ export default function Header({
               className={({ isActive }) =>
                 `${navLinkClass} relative ${
                   isActive
-                    ? 'text-content after:bg-content after:absolute after:bottom-[-11px] after:left-3.5 after:h-0.5 after:w-[12.813px] after:content-[""]'
+                    ? 'text-content after:bg-content after:absolute after:inset-x-3.5 after:bottom-[-10px] after:h-0.5 after:content-[""]'
                     : 'text-content-secondary hover:text-content'
                 }`
               }
