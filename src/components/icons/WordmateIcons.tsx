@@ -91,7 +91,7 @@ export function ChevronRight20Icon() {
 }
 
 export function LevelBadgeIcon() {
-  return <img src={levelBadge16} alt="" aria-hidden="true" width={16} height={16} />
+  return <img src={levelBadge16} alt="" aria-hidden="true" width={10.6667} height={14.512} />
 }
 
 export function NotificationIcon() {
@@ -103,11 +103,11 @@ export function RankUpIcon() {
 }
 
 export function ReviewBookIcon() {
-  return <img src={reviewBook24} alt="" aria-hidden="true" width={24} height={24} />
+  return <img src={reviewBook24} alt="" aria-hidden="true" width={20.384} height={20.3999} />
 }
 
 export function WrongNotesIcon() {
-  return <img src={wrongNotes24} alt="" aria-hidden="true" width={24} height={24} />
+  return <img src={wrongNotes24} alt="" aria-hidden="true" width={22.1033} height={11.2} />
 }
 
 export function StreakFire() {
