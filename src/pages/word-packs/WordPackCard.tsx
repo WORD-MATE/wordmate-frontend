@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { wordPackDetailPath } from '@/routes/paths'
+import { wordPackDetail } from '@/pages/word-packs/wordPackDetailData'
 
 export type WordPack = {
   id: string
@@ -17,11 +18,10 @@ const badgeLabel = {
 } as const
 
 export default function WordPackCard({ pack }: { pack: WordPack }) {
-  return (
-    <Link
-      to={wordPackDetailPath(pack.id)}
-      className="bg-background-card flex h-[168px] min-h-[168px] flex-col items-start gap-2 rounded-lg p-5 text-left"
-    >
+  const className =
+    'bg-background-card flex h-[168px] min-h-[168px] flex-col items-start gap-2 rounded-lg p-5 text-left'
+  const content = (
+    <>
       <span className="flex w-full items-start gap-1">
         <span className="bg-background-disabled text-content-secondary flex h-[22px] items-center rounded-xs px-[7px] text-xs leading-[18px] font-semibold tracking-[-0.15px]">
           {pack.wordCount}단어
@@ -55,6 +55,14 @@ export default function WordPackCard({ pack }: { pack: WordPack }) {
           {pack.progress}%
         </span>
       </span>
+    </>
+  )
+
+  return pack.id === wordPackDetail.id ? (
+    <Link to={wordPackDetailPath(pack.id)} className={className}>
+      {content}
     </Link>
+  ) : (
+    <article className={className}>{content}</article>
   )
 }
