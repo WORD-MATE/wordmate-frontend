@@ -3,6 +3,7 @@ export const paths = {
   signUpTerms: '/sign-up/terms',
   home: '/',
   wordPacks: '/word-packs',
+  wordPackDetail: '/word-packs/:packId',
   battle: '/battle',
   ranking: '/ranking',
   wrongNotes: '/wrong-notes',
@@ -10,3 +11,5 @@ export const paths = {
   studyLog: '/study-log',
   myPage: '/my-page',
 } as const
+
+export const wordPackDetailPath = (packId: string) => `/word-packs/${packId}`

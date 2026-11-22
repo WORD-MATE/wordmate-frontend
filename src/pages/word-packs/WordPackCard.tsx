@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+import { wordPackDetailPath } from '@/routes/paths'
 export type WordPack = {
   id: string
   wordCount: number
@@ -15,8 +17,8 @@ const badgeLabel = {
 
 export default function WordPackCard({ pack }: { pack: WordPack }) {
   return (
-    <button
-      type="button"
+    <Link
+      to={wordPackDetailPath(pack.id)}
       className="bg-background-card flex h-[168px] min-h-[168px] flex-col items-start gap-2 rounded-lg p-5 text-left"
     >
       <span className="flex w-full items-start gap-1">
@@ -52,6 +54,6 @@ export default function WordPackCard({ pack }: { pack: WordPack }) {
           {pack.progress}%
         </span>
       </span>
-    </button>
+    </Link>
   )
 }
