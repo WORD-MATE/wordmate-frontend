@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { wordPackDetailPath } from '@/routes/paths'
+
 export type WordPack = {
   id: string
   wordCount: number
