@@ -102,3 +102,40 @@ test('없는 단어팩이면 안내와 목록 링크를 보여준다', () => {
     paths.wordPacks,
   )
 })
+
+test('뜻을 가린 상태에서 뜻을 누르면 그 단어만 보인다', async () => {
+  const user = userEvent.setup()
+  renderPage()
+
+  await user.click(screen.getByRole('checkbox', { name: '뜻 가리기' }))
+  expect(screen.getByText('버리다, 포기하다')).toHaveClass('text-transparent')
+
+  await user.click(screen.getByRole('button', { name: 'abandon 뜻 보기' }))
+
+  expect(screen.getByText('버리다, 포기하다')).not.toHaveClass('text-transparent')
+  expect(screen.getByText('정확한')).toHaveClass('text-transparent')
+})
+
+test('펼친 뜻을 다시 누르면 가려진다', async () => {
+  const user = userEvent.setup()
+  renderPage()
+
+  await user.click(screen.getByRole('checkbox', { name: '뜻 가리기' }))
+  await user.click(screen.getByRole('button', { name: 'abandon 뜻 보기' }))
+  await user.click(screen.getByRole('button', { name: 'abandon 뜻 숨기기' }))
+
+  expect(screen.getByText('버리다, 포기하다')).toHaveClass('text-transparent')
+})
+
+test('뜻 가리기를 껐다 켜면 펼쳐 둔 뜻도 다시 가려진다', async () => {
+  const user = userEvent.setup()
+  renderPage()
+
+  const toggle = screen.getByRole('checkbox', { name: '뜻 가리기' })
+  await user.click(toggle)
+  await user.click(screen.getByRole('button', { name: 'abandon 뜻 보기' }))
+  await user.click(toggle)
+  await user.click(toggle)
+
+  expect(screen.getByText('버리다, 포기하다')).toHaveClass('text-transparent')
+})
