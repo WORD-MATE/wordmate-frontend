@@ -7,11 +7,18 @@ import {
 
 type VocabularyRowProps = {
   word: VocabularyWord
+  /** 뜻 가리기가 켜져 있는지 */
   meaningHidden: boolean
+  /** 뜻 가리기가 켜진 상태에서 이 단어의 뜻을 눌러서 펼쳐 뒀는지 */
+  meaningRevealed: boolean
+  onToggleMeaning: (id: string) => void
   onToggleFavorite: (id: string) => void
   onPlayPronunciation: (word: string) => void
   pronunciationDisabled: boolean
 }
+
+const meaningClass =
+  'text-content-secondary block w-full pt-0.5 text-left text-sm leading-[21px] tracking-[-0.15px]'
 
 const iconButtonClass =
   'hover:bg-background-subtle flex size-9 shrink-0 items-center justify-center rounded-md'
@@ -19,6 +26,8 @@ const iconButtonClass =
 export default function VocabularyRow({
   word,
   meaningHidden,
+  meaningRevealed,
+  onToggleMeaning,
   onToggleFavorite,
   onPlayPronunciation,
   pronunciationDisabled,
@@ -35,14 +44,21 @@ export default function VocabularyRow({
         <p className="text-content text-[17px] leading-[25.5px] font-bold tracking-[-0.17px]">
           {word.word}
         </p>
-        <p
-          aria-hidden={meaningHidden}
-          className={`text-content-secondary pt-0.5 text-sm leading-[21px] tracking-[-0.15px] ${
-            meaningHidden ? 'bg-background-disabled text-transparent select-none' : ''
-          }`}
-        >
-          {word.meaning}
-        </p>
+        {meaningHidden ? (
+          <button
+            type="button"
+            aria-label={`${word.word} 뜻 ${meaningRevealed ? '숨기기' : '보기'}`}
+            aria-expanded={meaningRevealed}
+            onClick={() => onToggleMeaning(word.id)}
+            className={`${meaningClass} focus-visible:ring-content cursor-pointer rounded-xs focus-visible:ring-2 ${
+              meaningRevealed ? '' : 'bg-background-disabled text-transparent select-none'
+            }`}
+          >
+            {word.meaning}
+          </button>
+        ) : (
+          <p className={meaningClass}>{word.meaning}</p>
+        )}
       </div>
 
       <div className="flex shrink-0 items-start gap-0.5">
