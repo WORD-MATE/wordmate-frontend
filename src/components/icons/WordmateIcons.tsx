@@ -1,3 +1,5 @@
+import plus16 from '@/assets/icons/plus-16.svg'
+import search18 from '@/assets/icons/search-18.svg'
 import history18 from '@/assets/icons/history-18.svg'
 import logout18 from '@/assets/icons/logout-18.svg'
 import profile18 from '@/assets/icons/profile-18.svg'
@@ -143,4 +145,12 @@ export function TodaySentenceIcon() {
 
 export function LogoutIcon() {
   return <BoxedIcon src={logout18} size={18} />
+}
+
+export function SearchIcon() {
+  return <BoxedIcon src={search18} size={18} />
+}
+
+export function PlusIcon() {
+  return <img src={plus16} alt="" aria-hidden="true" width={16} height={16} />
 }
