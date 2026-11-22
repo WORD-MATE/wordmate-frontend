@@ -26,6 +26,8 @@ export const wordPackDetail = {
   caption: '기본 단어팩 · 24단어 · 고2 수준 핵심 어휘 24개',
 }
 
+export const hasWordPackDetail = (packId: string) => packId === wordPackDetail.id
+
 export const words: VocabularyWord[] = [
   {
     id: 'abandon',

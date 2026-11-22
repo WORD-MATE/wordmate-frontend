@@ -1,3 +1,5 @@
+import { useId } from 'react'
+
 type StudyStatusCardProps = {
   total: number
   memorized: number
@@ -11,6 +13,7 @@ export default function StudyStatusCard({
   learning,
   fresh,
 }: StudyStatusCardProps) {
+  const titleId = useId()
   const memorizedPercent = total > 0 ? (memorized / total) * 100 : 0
   const learningPercent = total > 0 ? (learning / total) * 100 : 0
   const freshPercent = total > 0 ? (fresh / total) * 100 : 0
@@ -21,11 +24,17 @@ export default function StudyStatusCard({
   ]
 
   return (
-    <section className="bg-background-card flex flex-col gap-3 rounded-lg p-5">
+    <section
+      aria-labelledby={titleId}
+      className="bg-background-card flex flex-col gap-3 rounded-lg p-5"
+    >
       <div>
-        <p className="text-content-secondary text-[13px] leading-[19.5px] tracking-[-0.15px]">
+        <h2
+          id={titleId}
+          className="text-content-secondary text-[13px] leading-[19.5px] tracking-[-0.15px]"
+        >
           학습 현황
-        </p>
+        </h2>
         <p className="text-content pt-1 tracking-[-0.96px]">
           <span className="text-[32px] leading-[48px] font-extrabold">{memorized}</span>
           <span className="text-content-secondary text-[15px] leading-[22.5px] font-semibold">
@@ -35,7 +44,10 @@ export default function StudyStatusCard({
         </p>
       </div>
 
-      <div className="bg-background-disabled flex h-2.5 overflow-clip rounded-xs">
+      <div
+        aria-hidden="true"
+        className="bg-background-disabled flex h-2.5 overflow-clip rounded-xs"
+      >
         <span className="bg-brand h-full" style={{ width: `${memorizedPercent}%` }} />
         <span className="bg-learning h-full" style={{ width: `${learningPercent}%` }} />
         <span className="bg-border-input h-full" style={{ width: `${freshPercent}%` }} />

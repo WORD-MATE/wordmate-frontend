@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ArrowLeftIcon, SearchIcon, StarSmallIcon } from '@/components/icons/WordmateIcons'
 import StudyStatusCard from '@/pages/word-packs/StudyStatusCard'
@@ -57,6 +57,22 @@ export default function WordPackDetailPage() {
     return matchesFilter && matchesKeyword
   })
 
+  const playPronunciation = useCallback(
+    (text: string) => {
+      if (!canSpeak) return
+      window.speechSynthesis.cancel()
+      const utterance = new SpeechSynthesisUtterance(text)
+      utterance.lang = 'en-US'
+      window.speechSynthesis.speak(utterance)
+    },
+    [canSpeak],
+  )
+
+  useEffect(() => {
+    if (!canSpeak) return
+    return () => window.speechSynthesis.cancel()
+  }, [canSpeak])
+
   const toggleFavorite = (id: string) => {
     setWordsByPack((prev) => ({
       ...prev,
@@ -102,7 +118,7 @@ export default function WordPackDetailPage() {
 
       <div className="desktop:grid-cols-[788px_360px] grid grid-cols-1 gap-x-3 gap-y-8 pt-6">
         <div className="min-w-0">
-          <div className="flex flex-wrap gap-1.5">
+          <div role="group" aria-label="단어 상태" className="flex flex-wrap gap-1.5">
             {filters.map(({ id, label, dot, star }) => (
               <button
                 key={id}
@@ -124,9 +140,10 @@ export default function WordPackDetailPage() {
           </div>
 
           <div className="flex items-center gap-3 pt-2 pb-3">
-            <div className="bg-background-subtle flex h-[38px] w-full max-w-[320px] min-w-0 flex-1 items-center gap-3 rounded-md px-3.5">
+            <div className="bg-background-subtle focus-within:ring-content flex h-[38px] w-full max-w-[320px] min-w-0 flex-1 items-center gap-3 rounded-md px-3.5 focus-within:ring-2">
               <SearchIcon />
               <input
+                type="search"
                 value={keyword}
                 onChange={(event) => setKeyword(event.target.value)}
                 placeholder="단어나 뜻으로 찾기"
@@ -160,24 +177,18 @@ export default function WordPackDetailPage() {
           </div>
 
           {visibleWords.length === 0 ? (
-            <p className="text-content-muted py-20 text-center text-sm">
+            <p role="status" className="text-content-muted py-20 text-center text-sm">
               조건에 맞는 단어가 없어요
             </p>
           ) : (
-            <ul>
+            <ul aria-label="단어 목록">
               {visibleWords.map((word) => (
                 <VocabularyRow
                   key={word.id}
                   word={word}
                   meaningHidden={meaningHidden}
                   onToggleFavorite={toggleFavorite}
-                  onPlayPronunciation={(text) => {
-                    if (!canSpeak) return
-                    window.speechSynthesis.cancel()
-                    const utterance = new SpeechSynthesisUtterance(text)
-                    utterance.lang = 'en-US'
-                    window.speechSynthesis.speak(utterance)
-                  }}
+                  onPlayPronunciation={playPronunciation}
                   pronunciationDisabled={!canSpeak}
                 />
               ))}

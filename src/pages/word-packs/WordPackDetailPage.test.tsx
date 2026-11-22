@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter, Route, Routes } from 'react-router-dom'
+import { paths } from '@/routes/paths'
 import WordPackDetailPage from '@/pages/word-packs/WordPackDetailPage'
 
 const renderPage = () =>
@@ -84,4 +85,20 @@ test('뜻 가리기를 켜면 뜻을 숨긴다', async () => {
 
   expect(toggle).toBeChecked()
   expect(screen.getByText('버리다, 포기하다')).toHaveClass('text-transparent')
+})
+
+test('없는 단어팩이면 안내와 목록 링크를 보여준다', () => {
+  render(
+    <MemoryRouter initialEntries={['/word-packs/unknown-pack']}>
+      <Routes>
+        <Route path={paths.wordPackDetail} element={<WordPackDetailPage />} />
+      </Routes>
+    </MemoryRouter>,
+  )
+
+  expect(screen.getByRole('heading', { name: '단어팩을 찾을 수 없어요' })).toBeInTheDocument()
+  expect(screen.getByRole('link', { name: '단어팩 목록으로' })).toHaveAttribute(
+    'href',
+    paths.wordPacks,
+  )
 })
