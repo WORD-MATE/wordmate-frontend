@@ -1,3 +1,6 @@
+import starFilled18 from '@/assets/icons/star-filled-18.svg'
+import starOutline18 from '@/assets/icons/star-outline-18.svg'
+import starSmall14 from '@/assets/icons/star-small-14.svg'
 import plus16 from '@/assets/icons/plus-16.svg'
 import search18 from '@/assets/icons/search-18.svg'
 import history18 from '@/assets/icons/history-18.svg'
@@ -153,4 +156,16 @@ export function SearchIcon() {
 
 export function PlusIcon() {
   return <img src={plus16} alt="" aria-hidden="true" width={16} height={16} />
+}
+
+export function StarOutlineIcon() {
+  return <img src={starOutline18} alt="" aria-hidden="true" width={18} height={18} />
+}
+
+export function StarFilledIcon() {
+  return <img src={starFilled18} alt="" aria-hidden="true" width={18} height={18} />
+}
+
+export function StarSmallIcon() {
+  return <img src={starSmall14} alt="" aria-hidden="true" width={14} height={14} />
 }
