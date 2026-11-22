@@ -101,10 +101,18 @@
     animation: login-letter-appear 80ms steps(1, end) forwards;
   }
 
-  .login-wordmark-letter-1 { animation-delay: 0.16s; }
-  .login-wordmark-letter-2 { animation-delay: 0.38s; }
-  .login-wordmark-letter-3 { animation-delay: 0.6s; }
-  .login-wordmark-letter-4 { animation-delay: 0.82s; }
+  .login-wordmark-letter-1 {
+    animation-delay: 0.16s;
+  }
+  .login-wordmark-letter-2 {
+    animation-delay: 0.38s;
+  }
+  .login-wordmark-letter-3 {
+    animation-delay: 0.6s;
+  }
+  .login-wordmark-letter-4 {
+    animation-delay: 0.82s;
+  }
 
   .login-wordmark-caret {
     display: inline-block;
@@ -118,6 +126,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .login-wordmark-letter { opacity: 1; animation: none; }
-  .login-wordmark-caret { display: none; animation: none; }
+  .login-wordmark-letter {
+    opacity: 1;
+    animation: none;
+  }
+  .login-wordmark-caret {
+    display: none;
+    animation: none;
+  }
 }
