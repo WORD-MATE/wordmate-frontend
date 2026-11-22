@@ -1,4 +1,6 @@
 import { ArrowRightAltIcon, ChevronRight20Icon } from '@/components/icons/WordmateIcons'
+import { Link } from 'react-router-dom'
+import { paths } from '@/routes/paths'
 
 export default function ContinueLearning() {
   return (
@@ -7,12 +9,12 @@ export default function ContinueLearning() {
         <h2 className="text-content text-[18px] leading-[27px] font-bold tracking-[-0.36px]">
           이어서 학습
         </h2>
-        <button type="button" className="flex items-center gap-0.5">
+        <Link to={paths.wordPacks} className="flex items-center gap-0.5">
           <span className="text-content-muted text-[13px] leading-[19.5px] font-semibold tracking-[-0.15px]">
             전체 단어팩
           </span>
           <ArrowRightAltIcon />
-        </button>
+        </Link>
       </div>
 
       <div className="pt-3.5">
