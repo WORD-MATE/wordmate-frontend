@@ -22,6 +22,7 @@ export default function WordPackDetailPage() {
   const [filter, setFilter] = useState<FilterId>('all')
   const [keyword, setKeyword] = useState('')
   const [meaningHidden, setMeaningHidden] = useState(false)
+  const [revealedIds, setRevealedIds] = useState<ReadonlySet<string>>(() => new Set())
   const canSpeak = typeof window !== 'undefined' && 'speechSynthesis' in window
   const detail = packId === wordPackDetail.id ? wordPackDetail : null
   const words = wordsByPack[packId] ?? EMPTY_WORDS
@@ -72,6 +73,20 @@ export default function WordPackDetailPage() {
     if (!canSpeak) return
     return () => window.speechSynthesis.cancel()
   }, [canSpeak])
+
+  const toggleMeaningHidden = (hidden: boolean) => {
+    setMeaningHidden(hidden)
+    // 가리기를 껐다 켜면 펼쳐 둔 뜻도 다시 가린다.
+    setRevealedIds(new Set())
+  }
+
+  const toggleMeaning = (id: string) => {
+    setRevealedIds((prev) => {
+      const next = new Set(prev)
+      if (!next.delete(id)) next.add(id)
+      return next
+    })
+  }
 
   const toggleFavorite = (id: string) => {
     setWordsByPack((prev) => ({
@@ -159,7 +174,7 @@ export default function WordPackDetailPage() {
               <input
                 type="checkbox"
                 checked={meaningHidden}
-                onChange={(event) => setMeaningHidden(event.target.checked)}
+                onChange={(event) => toggleMeaningHidden(event.target.checked)}
                 className="peer sr-only"
               />
               <span
@@ -187,6 +202,8 @@ export default function WordPackDetailPage() {
                   key={word.id}
                   word={word}
                   meaningHidden={meaningHidden}
+                  meaningRevealed={revealedIds.has(word.id)}
+                  onToggleMeaning={toggleMeaning}
                   onToggleFavorite={toggleFavorite}
                   onPlayPronunciation={playPronunciation}
                   pronunciationDisabled={!canSpeak}
