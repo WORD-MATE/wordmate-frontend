@@ -1,22 +1,29 @@
 import { useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { ArrowLeftIcon, SearchIcon, StarSmallIcon } from '@/components/icons/WordmateIcons'
 import StudyStatusCard from '@/pages/word-packs/StudyStatusCard'
 import VocabularyRow from '@/pages/word-packs/VocabularyRow'
+import { paths } from '@/routes/paths'
 import {
   statusDotClass,
   wordPackDetail,
   words as initialWords,
+  type VocabularyWord,
 } from '@/pages/word-packs/wordPackDetailData'
 
 type FilterId = 'all' | 'new' | 'learning' | 'memorized' | 'favorite'
 
 export default function WordPackDetailPage() {
-  const navigate = useNavigate()
-  const [words, setWords] = useState(initialWords)
+  const { packId = wordPackDetail.id } = useParams()
+  const [wordsByPack, setWordsByPack] = useState<Record<string, VocabularyWord[]>>(() => ({
+    [wordPackDetail.id]: initialWords,
+  }))
   const [filter, setFilter] = useState<FilterId>('all')
   const [keyword, setKeyword] = useState('')
   const [meaningHidden, setMeaningHidden] = useState(false)
+  const canSpeak = typeof window !== 'undefined' && 'speechSynthesis' in window
+  const detail = packId === wordPackDetail.id ? wordPackDetail : null
+  const words = wordsByPack[packId] ?? []
 
   const counts = useMemo(
     () => ({
@@ -49,29 +56,47 @@ export default function WordPackDetailPage() {
     return matchesFilter && matchesKeyword
   })
 
-  const toggleFavorite = (id: string) =>
-    setWords((prev) =>
-      prev.map((word) => (word.id === id ? { ...word, favorite: !word.favorite } : word)),
+  const toggleFavorite = (id: string) => {
+    setWordsByPack((prev) => ({
+      ...prev,
+      [packId]: (prev[packId] ?? []).map((word) =>
+        word.id === id ? { ...word, favorite: !word.favorite } : word,
+      ),
+    }))
+  }
+
+  if (!detail) {
+    return (
+      <section className="mx-auto flex w-full max-w-[1160px] flex-col items-center gap-3 py-20 text-center">
+        <h1 className="text-content text-xl font-bold">단어팩을 찾을 수 없어요</h1>
+        <p className="text-content-secondary text-sm">목록에서 다른 단어팩을 선택해주세요.</p>
+        <Link
+          to={paths.wordPacks}
+          className="text-content mt-2 rounded-md px-4 py-2 font-semibold underline"
+        >
+          단어팩 목록으로
+        </Link>
+      </section>
     )
+  }
 
   return (
     <div className="mx-auto flex w-full max-w-[1160px] flex-col">
       <div className="flex items-center gap-1 pb-6">
-        <button
-          type="button"
-          aria-label="뒤로 가기"
-          onClick={() => navigate(-1)}
+        <Link
+          to={paths.wordPacks}
+          aria-label="단어팩 목록으로 돌아가기"
           className="hover:bg-background-subtle -ml-2 flex size-10 shrink-0 items-center justify-center rounded-md"
         >
           <ArrowLeftIcon />
-        </button>
+        </Link>
         <h1 className="text-content text-[28px] leading-[42px] font-extrabold tracking-[-0.84px]">
-          {wordPackDetail.name}
+          {detail.name}
         </h1>
       </div>
 
       <p className="text-content-secondary -mt-4 text-sm leading-[21px] tracking-[-0.15px]">
-        {wordPackDetail.caption}
+        {detail.caption}
       </p>
 
       <div className="desktop:grid-cols-[788px_360px] grid grid-cols-1 gap-x-3 gap-y-8 pt-6">
@@ -117,12 +142,12 @@ export default function WordPackDetailPage() {
                 type="checkbox"
                 checked={meaningHidden}
                 onChange={(event) => setMeaningHidden(event.target.checked)}
-                className="sr-only"
+                className="peer sr-only"
               />
               <span
                 className={`relative h-[26px] w-11 rounded-[13px] transition-colors ${
                   meaningHidden ? 'bg-brand' : 'bg-background-disabled'
-                }`}
+                } peer-focus-visible:ring-content peer-focus-visible:ring-2 peer-focus-visible:ring-offset-2`}
               >
                 <span
                   className={`bg-background absolute top-[3px] size-5 rounded-[10px] transition-[left] ${
@@ -145,6 +170,14 @@ export default function WordPackDetailPage() {
                   word={word}
                   meaningHidden={meaningHidden}
                   onToggleFavorite={toggleFavorite}
+                  onPlayPronunciation={(text) => {
+                    if (!canSpeak) return
+                    window.speechSynthesis.cancel()
+                    const utterance = new SpeechSynthesisUtterance(text)
+                    utterance.lang = 'en-US'
+                    window.speechSynthesis.speak(utterance)
+                  }}
+                  pronunciationDisabled={!canSpeak}
                 />
               ))}
             </ul>

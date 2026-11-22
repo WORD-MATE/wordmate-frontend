@@ -11,6 +11,9 @@ export default function StudyStatusCard({
   learning,
   fresh,
 }: StudyStatusCardProps) {
+  const memorizedPercent = total > 0 ? (memorized / total) * 100 : 0
+  const learningPercent = total > 0 ? (learning / total) * 100 : 0
+  const freshPercent = total > 0 ? (fresh / total) * 100 : 0
   const legend = [
     { label: '암기 완료', count: memorized, dot: 'bg-brand' },
     { label: '학습 중', count: learning, dot: 'bg-learning' },
@@ -33,9 +36,9 @@ export default function StudyStatusCard({
       </div>
 
       <div className="bg-background-disabled flex h-2.5 overflow-clip rounded-xs">
-        <span className="bg-brand h-full" style={{ width: `${(memorized / total) * 100}%` }} />
-        <span className="bg-learning h-full" style={{ width: `${(learning / total) * 100}%` }} />
-        <span className="bg-border-input h-full" style={{ width: `${(fresh / total) * 100}%` }} />
+        <span className="bg-brand h-full" style={{ width: `${memorizedPercent}%` }} />
+        <span className="bg-learning h-full" style={{ width: `${learningPercent}%` }} />
+        <span className="bg-border-input h-full" style={{ width: `${freshPercent}%` }} />
       </div>
 
       <ul className="flex flex-col gap-2">
@@ -54,7 +57,9 @@ export default function StudyStatusCard({
 
       <button
         type="button"
-        className="bg-brand text-content-on-accent hover:bg-brand-strong h-12 w-full rounded-md px-5 text-[15px] leading-[22.5px] font-bold tracking-[-0.15px]"
+        disabled
+        title="학습 설정 화면은 준비 중입니다."
+        className="bg-brand text-content-on-accent h-12 w-full cursor-not-allowed rounded-md px-5 text-[15px] leading-[22.5px] font-bold tracking-[-0.15px] opacity-60"
       >
         학습 시작
       </button>
