@@ -9,17 +9,52 @@ type NewWordPackDialogProps = {
 
 export default function NewWordPackDialog({ onClose, onCreate }: NewWordPackDialogProps) {
   const [name, setName] = useState('')
+  const dialogRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const titleId = useId()
 
   useEffect(() => {
+    const previouslyFocused =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null
     inputRef.current?.focus()
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose()
+      if (event.key === 'Escape') {
+        onClose()
+        return
+      }
+      if (event.key !== 'Tab') return
+
+      const dialog = dialogRef.current
+      if (!dialog) return
+      const focusable = dialog.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      )
+      const first = focusable.item(0)
+      const last = focusable.item(focusable.length - 1)
+      if (!first || !last) {
+        event.preventDefault()
+        dialog.focus()
+        return
+      }
+
+      if (!dialog.contains(document.activeElement)) {
+        event.preventDefault()
+        const target = event.shiftKey ? last : first
+        target.focus()
+      } else if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
     }
     document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      if (previouslyFocused?.isConnected) previouslyFocused.focus()
+    }
   }, [onClose])
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
@@ -39,6 +74,8 @@ export default function NewWordPackDialog({ onClose, onCreate }: NewWordPackDial
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
+        ref={dialogRef}
+        tabIndex={-1}
         className="bg-background flex w-full max-w-[480px] flex-col rounded-lg p-7"
       >
         <h2
