@@ -1,3 +1,5 @@
+import { useId } from 'react'
+
 export type WordPack = {
   id: string
   wordCount: number
@@ -14,8 +16,14 @@ const badgeLabel = {
 } as const
 
 export default function WordPackCard({ pack }: { pack: WordPack }) {
+  const nameId = useId()
+  const progress = Math.min(100, Math.max(0, Math.round(pack.progress)))
+
   return (
-    <article className="bg-background-card flex h-[168px] min-h-[168px] flex-col items-start gap-2 rounded-lg p-5 text-left">
+    <article
+      aria-labelledby={nameId}
+      className="bg-background-card flex h-[168px] flex-col items-start gap-2 rounded-lg p-5 text-left"
+    >
       <span className="flex w-full items-start gap-1">
         <span className="bg-background-disabled text-content-secondary flex h-[22px] items-center rounded-xs px-[7px] text-xs leading-[18px] font-semibold tracking-[-0.15px]">
           {pack.wordCount}단어
@@ -33,20 +41,33 @@ export default function WordPackCard({ pack }: { pack: WordPack }) {
         )}
       </span>
 
-      <span className="text-content h-8 pt-1.5 text-[17px] leading-[25.5px] font-extrabold tracking-[-0.34px]">
+      <h3
+        id={nameId}
+        className="text-content h-8 w-full truncate pt-1.5 text-[17px] leading-[25.5px] font-extrabold tracking-[-0.34px]"
+      >
         {pack.name}
-      </span>
+      </h3>
 
-      <span className="text-content-secondary flex-1 text-[13px] leading-[19.5px] tracking-[-0.15px]">
+      <p className="text-content-secondary line-clamp-2 flex-1 text-[13px] leading-[19.5px] tracking-[-0.15px]">
         {pack.description}
-      </span>
+      </p>
 
       <span className="flex w-full items-center gap-2.5">
-        <span className="bg-background-disabled h-1 flex-1 overflow-clip rounded-xs">
-          <span className="bg-brand block h-1" style={{ width: `${pack.progress}%` }} />
+        <span
+          role="progressbar"
+          aria-label="학습 진행률"
+          aria-valuenow={progress}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          className="bg-background-disabled h-1 flex-1 overflow-clip rounded-xs"
+        >
+          <span className="bg-brand block h-1" style={{ width: `${progress}%` }} />
         </span>
-        <span className="text-content-muted text-xs leading-[18px] tracking-[-0.15px]">
-          {pack.progress}%
+        <span
+          aria-hidden="true"
+          className="text-content-muted text-xs leading-[18px] tracking-[-0.15px]"
+        >
+          {progress}%
         </span>
       </span>
     </article>

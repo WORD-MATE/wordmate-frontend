@@ -11,12 +11,18 @@ export default function NewWordPackDialog({ onClose, onCreate }: NewWordPackDial
   const [name, setName] = useState('')
   const dialogRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const titleId = useId()
+  const baseId = useId()
+  const titleId = `${baseId}-title`
+  const nameId = `${baseId}-name`
+  const counterId = `${baseId}-counter`
 
   useEffect(() => {
     const previouslyFocused =
       document.activeElement instanceof HTMLElement ? document.activeElement : null
     inputRef.current?.focus()
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -53,6 +59,7 @@ export default function NewWordPackDialog({ onClose, onCreate }: NewWordPackDial
     document.addEventListener('keydown', handleKeyDown)
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = previousOverflow
       if (previouslyFocused?.isConnected) previouslyFocused.focus()
     }
   }, [onClose])
@@ -65,7 +72,7 @@ export default function NewWordPackDialog({ onClose, onCreate }: NewWordPackDial
 
   return (
     <div
-      className="fixed inset-0 z-40 flex items-center justify-center bg-[rgba(10,12,14,0.45)] p-4"
+      className="bg-overlay/45 fixed inset-0 z-40 flex items-center justify-center p-4"
       onPointerDown={(event) => {
         if (event.target === event.currentTarget) onClose()
       }}
@@ -88,21 +95,25 @@ export default function NewWordPackDialog({ onClose, onCreate }: NewWordPackDial
         <form onSubmit={submit}>
           <div className="flex flex-col gap-2 pt-4">
             <label
-              htmlFor={`${titleId}-name`}
+              htmlFor={nameId}
               className="text-content-secondary text-[13px] leading-[19.5px] font-semibold tracking-[-0.15px]"
             >
               이름
             </label>
             <input
               ref={inputRef}
-              id={`${titleId}-name`}
+              id={nameId}
               value={name}
               maxLength={MAX_LENGTH}
+              aria-describedby={counterId}
               onChange={(event) => setName(event.target.value)}
               placeholder="예: 기말고사 대비"
-              className="bg-background-subtle text-content placeholder:text-content-muted h-[50px] rounded-md px-3.5 text-[15px] outline-none"
+              className="bg-background-subtle text-content placeholder:text-content-muted focus-visible:ring-content h-[50px] rounded-md px-3.5 text-[15px] outline-none focus-visible:ring-2"
             />
-            <p className="text-content-muted text-xs leading-[18px] tracking-[-0.15px]">
+            <p
+              id={counterId}
+              className="text-content-muted text-xs leading-[18px] tracking-[-0.15px]"
+            >
               {name.length}/{MAX_LENGTH}
             </p>
           </div>

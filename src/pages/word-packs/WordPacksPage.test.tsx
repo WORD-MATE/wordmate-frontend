@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import WordPackCard from '@/pages/word-packs/WordPackCard'
 import WordPacksPage from '@/pages/word-packs/WordPacksPage'
 
 const tab = (name: string) => screen.getByRole('tab', { name })
@@ -80,4 +81,47 @@ test('새 단어팩 모달을 Escape로 닫는다', async () => {
   await user.keyboard('{Escape}')
 
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+})
+
+test('모달에서 만든 단어팩이 내 단어팩 목록에 추가된다', async () => {
+  const user = userEvent.setup()
+  render(<WordPacksPage />)
+
+  await user.click(tab('내 단어팩'))
+  await user.click(screen.getByRole('button', { name: /새 단어팩/ }))
+  await user.type(screen.getByLabelText('이름'), '  기말고사 대비  ')
+  await user.click(screen.getByRole('button', { name: '만들기' }))
+
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: '기말고사 대비' })).toBeInTheDocument()
+})
+
+test('탭을 바꾸면 검색어가 초기화된다', async () => {
+  const user = userEvent.setup()
+  render(<WordPacksPage />)
+
+  await user.type(screen.getByLabelText('단어팩 이름으로 검색'), 'IT')
+  await user.click(tab('내 단어팩'))
+
+  expect(screen.getByLabelText('단어팩 이름으로 검색')).toHaveValue('')
+  expect(screen.getByText('중간고사 대비')).toBeInTheDocument()
+})
+
+test('방향키로 탭을 옮길 수 있다', async () => {
+  const user = userEvent.setup()
+  render(<WordPacksPage />)
+
+  await user.click(tab('기본 단어팩'))
+  await user.keyboard('{ArrowRight}')
+
+  expect(tab('내 단어팩')).toHaveAttribute('aria-selected', 'true')
+  expect(tab('내 단어팩')).toHaveFocus()
+})
+
+test('진행률은 0~100 범위로 보정된다', () => {
+  render(
+    <WordPackCard pack={{ id: 'x', wordCount: 1, name: 'x', description: 'x', progress: 140 }} />,
+  )
+
+  expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '100')
 })
