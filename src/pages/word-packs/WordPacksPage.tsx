@@ -77,7 +77,7 @@ export default function WordPacksPage() {
     setMyPacks((packs) => [
       ...packs,
       {
-        id: `custom-${Date.now()}`,
+        id: `custom-${packs.length + 1}`,
         wordCount: 0,
         name,
         description: '새 단어팩',
