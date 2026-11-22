@@ -104,12 +104,15 @@
   .login-wordmark-letter-1 {
     animation-delay: 0.16s;
   }
+
   .login-wordmark-letter-2 {
     animation-delay: 0.38s;
   }
+
   .login-wordmark-letter-3 {
     animation-delay: 0.6s;
   }
+
   .login-wordmark-letter-4 {
     animation-delay: 0.82s;
   }
@@ -130,6 +133,7 @@
     opacity: 1;
     animation: none;
   }
+
   .login-wordmark-caret {
     display: none;
     animation: none;
