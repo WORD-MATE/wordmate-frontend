@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import Header from '@/components/layout/Header'
 import { BookOpen, House, Swords, Trophy, UserRound } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
@@ -20,6 +20,8 @@ const sampleNotifications = [
 ]
 
 export default function AppLayout() {
+  const { pathname } = useLocation()
+
   return (
     <div className="bg-background min-h-dvh">
       <Header
@@ -29,7 +31,9 @@ export default function AppLayout() {
         wrongNoteCount={7}
       />
       <main className="desktop:px-10 desktop:pb-16 mx-auto w-full max-w-[1240px] px-5 pt-4 pb-[92px] sm:px-6 sm:pt-8">
-        <Outlet />
+        <div key={pathname} className="animate-page-enter">
+          <Outlet />
+        </div>
       </main>
       <nav
         aria-label="하단 메뉴"
