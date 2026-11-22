@@ -37,12 +37,47 @@
   --radius-xl: 11px;
   --radius-2xl: 12px;
   --radius-full: 48px;
+
+  --animate-page-enter: page-enter 220ms ease-out;
+  --animate-nav-underline: nav-underline 180ms ease-out;
+
+  @keyframes page-enter {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes nav-underline {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
 }
 
 @layer base {
+  html {
+    /* 페이지마다 스크롤바가 생겼다 사라지며 가운데 정렬된 헤더가 좌우로 흔들리는 것을 막는다. */
+    scrollbar-gutter: stable;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-content);
     font-family: var(--font-sans);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-page-enter,
+  .after\:animate-nav-underline::after {
+    animation: none;
   }
 }

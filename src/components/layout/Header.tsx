@@ -44,7 +44,7 @@ const studyItems = [
 ]
 
 const navLinkClass =
-  'flex h-10 items-center gap-0.5 rounded-md px-3.5 text-[15px] font-bold tracking-[-0.15px] whitespace-nowrap'
+  'flex h-10 items-center gap-0.5 rounded-md px-3.5 text-[15px] font-bold tracking-[-0.15px] whitespace-nowrap transition-colors duration-150'
 const menuItemClass =
   'text-content-secondary hover:bg-background-subtle flex h-10 w-full items-center gap-2.5 rounded-sm px-2.5 text-sm leading-[21px] font-semibold tracking-[-0.15px]'
 const menuPanelClass = 'min-w-[220px] p-1.5 drop-shadow-[0px_16px_20px_rgba(0,0,0,0.35)]'
@@ -109,7 +109,7 @@ export default function Header({
               className={({ isActive }) =>
                 `${navLinkClass} relative ${
                   isActive
-                    ? 'text-content after:bg-content after:absolute after:inset-x-3.5 after:bottom-[-10px] after:h-0.5 after:content-[""]'
+                    ? 'text-content after:bg-content after:animate-nav-underline after:absolute after:inset-x-3.5 after:bottom-[-10px] after:h-0.5 after:origin-left after:content-[""]'
                     : 'text-content-secondary hover:text-content'
                 }`
               }

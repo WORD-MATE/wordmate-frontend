@@ -1,6 +1,11 @@
 import history18 from '@/assets/icons/history-18.svg'
 import logout18 from '@/assets/icons/logout-18.svg'
+import plus16 from '@/assets/icons/plus-16.svg'
 import profile18 from '@/assets/icons/profile-18.svg'
+import search18 from '@/assets/icons/search-18.svg'
+import starFilled18 from '@/assets/icons/star-filled-18.svg'
+import starOutline18 from '@/assets/icons/star-outline-18.svg'
+import starSmall14 from '@/assets/icons/star-small-14.svg'
 import todaySentence18 from '@/assets/icons/today-sentence-18.svg'
 import wrongNotes18 from '@/assets/icons/wrong-notes-18.svg'
 import brandLockup from '@/assets/brand-lockup.svg'
@@ -86,7 +91,7 @@ export function ChevronRight20Icon() {
 }
 
 export function LevelBadgeIcon() {
-  return <img src={levelBadge16} alt="" aria-hidden="true" width={16} height={16} />
+  return <img src={levelBadge16} alt="" aria-hidden="true" width={10.6667} height={14.512} />
 }
 
 export function NotificationIcon() {
@@ -98,11 +103,11 @@ export function RankUpIcon() {
 }
 
 export function ReviewBookIcon() {
-  return <img src={reviewBook24} alt="" aria-hidden="true" width={24} height={24} />
+  return <img src={reviewBook24} alt="" aria-hidden="true" width={20.384} height={20.3999} />
 }
 
 export function WrongNotesIcon() {
-  return <img src={wrongNotes24} alt="" aria-hidden="true" width={24} height={24} />
+  return <img src={wrongNotes24} alt="" aria-hidden="true" width={22.1033} height={11.2} />
 }
 
 export function StreakFire() {
@@ -143,4 +148,24 @@ export function TodaySentenceIcon() {
 
 export function LogoutIcon() {
   return <BoxedIcon src={logout18} size={18} />
+}
+
+export function SearchIcon() {
+  return <BoxedIcon src={search18} size={18} />
+}
+
+export function PlusIcon() {
+  return <img src={plus16} alt="" aria-hidden="true" width={16} height={16} />
+}
+
+export function StarOutlineIcon() {
+  return <img src={starOutline18} alt="" aria-hidden="true" width={18} height={18} />
+}
+
+export function StarFilledIcon() {
+  return <img src={starFilled18} alt="" aria-hidden="true" width={18} height={18} />
+}
+
+export function StarSmallIcon() {
+  return <img src={starSmall14} alt="" aria-hidden="true" width={14} height={14} />
 }
