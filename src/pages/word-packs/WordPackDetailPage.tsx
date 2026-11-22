@@ -12,6 +12,7 @@ import {
 } from '@/pages/word-packs/wordPackDetailData'
 
 type FilterId = 'all' | 'new' | 'learning' | 'memorized' | 'favorite'
+const EMPTY_WORDS: VocabularyWord[] = []
 
 export default function WordPackDetailPage() {
   const { packId = wordPackDetail.id } = useParams()
@@ -23,7 +24,7 @@ export default function WordPackDetailPage() {
   const [meaningHidden, setMeaningHidden] = useState(false)
   const canSpeak = typeof window !== 'undefined' && 'speechSynthesis' in window
   const detail = packId === wordPackDetail.id ? wordPackDetail : null
-  const words = wordsByPack[packId] ?? []
+  const words = wordsByPack[packId] ?? EMPTY_WORDS
 
   const counts = useMemo(
     () => ({
