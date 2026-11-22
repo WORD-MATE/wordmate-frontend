@@ -48,7 +48,7 @@ const defaultPacks: WordPack[] = [
   },
 ]
 
-const myPacks: WordPack[] = [
+const initialMyPacks: WordPack[] = [
   {
     id: 'midterm',
     wordCount: 18,
@@ -71,6 +71,23 @@ export default function WordPacksPage() {
   const [category, setCategory] = useState<string>('전체')
   const [keyword, setKeyword] = useState('')
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [myPacks, setMyPacks] = useState(initialMyPacks)
+
+  const createPack = (name: string) => {
+    setMyPacks((packs) => [
+      ...packs,
+      {
+        id: `custom-${Date.now()}`,
+        wordCount: 0,
+        name,
+        description: '새 단어팩',
+        progress: 0,
+      },
+    ])
+    setTab('mine')
+    setKeyword('')
+    setDialogOpen(false)
+  }
 
   const packs = tab === 'default' ? defaultPacks : myPacks
   const visiblePacks = packs.filter(
@@ -161,7 +178,9 @@ export default function WordPacksPage() {
         </div>
       </div>
 
-      {dialogOpen && <NewWordPackDialog onClose={() => setDialogOpen(false)} />}
+      {dialogOpen && (
+        <NewWordPackDialog onClose={() => setDialogOpen(false)} onCreate={createPack} />
+      )}
     </>
   )
 }
