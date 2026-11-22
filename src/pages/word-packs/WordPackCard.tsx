@@ -1,4 +1,7 @@
 import { useId } from 'react'
+import { Link } from 'react-router-dom'
+import { hasWordPackDetail } from '@/pages/word-packs/wordPackDetailData'
+import { wordPackDetailPath } from '@/routes/paths'
 
 export type WordPack = {
   id: string
@@ -22,7 +25,7 @@ export default function WordPackCard({ pack }: { pack: WordPack }) {
   return (
     <article
       aria-labelledby={nameId}
-      className="bg-background-card flex h-[168px] flex-col items-start gap-2 rounded-lg p-5 text-left"
+      className="bg-background-card relative flex h-[168px] flex-col items-start gap-2 rounded-lg p-5 text-left"
     >
       <span className="flex w-full items-start gap-1">
         <span className="bg-background-disabled text-content-secondary flex h-[22px] items-center rounded-xs px-[7px] text-xs leading-[18px] font-semibold tracking-[-0.15px]">
@@ -45,7 +48,16 @@ export default function WordPackCard({ pack }: { pack: WordPack }) {
         id={nameId}
         className="text-content h-8 w-full truncate pt-1.5 text-[17px] leading-[25.5px] font-extrabold tracking-[-0.34px]"
       >
-        {pack.name}
+        {hasWordPackDetail(pack.id) ? (
+          <Link
+            to={wordPackDetailPath(pack.id)}
+            className="rounded-sm after:absolute after:inset-0 after:content-[''] focus-visible:underline"
+          >
+            {pack.name}
+          </Link>
+        ) : (
+          pack.name
+        )}
       </h3>
 
       <p className="text-content-secondary line-clamp-2 flex-1 text-[13px] leading-[19.5px] tracking-[-0.15px]">
