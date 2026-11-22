@@ -65,7 +65,7 @@ export default function LoginPage() {
                 className="text-content inline-block text-[100px] leading-none font-extrabold tracking-[-0.05em] lg:text-[clamp(5rem,11vw,11rem)]"
                 style={{ backgroundImage: highlight }}
               >
-                mate
+<span className="sr-only">mate</span><span aria-hidden="true"><span className="login-wordmark-letter login-wordmark-letter-1">m</span><span className="login-wordmark-letter login-wordmark-letter-2">a</span><span className="login-wordmark-letter login-wordmark-letter-3">t</span><span className="login-wordmark-letter login-wordmark-letter-4">e</span><span className="login-wordmark-caret" /></span>
               </p>
             </div>
 
