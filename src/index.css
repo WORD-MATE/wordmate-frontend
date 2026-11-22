@@ -81,3 +81,43 @@
     animation: none;
   }
 }
+
+
+@keyframes login-letter-appear {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes login-caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@layer components {
+  .login-wordmark-letter {
+    opacity: 0;
+    animation: login-letter-appear 80ms steps(1, end) forwards;
+  }
+
+  .login-wordmark-letter-1 { animation-delay: 0.16s; }
+  .login-wordmark-letter-2 { animation-delay: 0.38s; }
+  .login-wordmark-letter-3 { animation-delay: 0.6s; }
+  .login-wordmark-letter-4 { animation-delay: 0.82s; }
+
+  .login-wordmark-caret {
+    display: inline-block;
+    width: 0.055em;
+    height: 0.78em;
+    margin-left: 0.08em;
+    vertical-align: -0.04em;
+    background: currentColor;
+    animation: login-caret-blink 0.8s step-end 1.04s infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-wordmark-letter { opacity: 1; animation: none; }
+  .login-wordmark-caret { display: none; animation: none; }
+}
