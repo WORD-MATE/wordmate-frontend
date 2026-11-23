@@ -71,7 +71,6 @@ export default function LoginPage() {
                   <span className="login-wordmark-letter login-wordmark-letter-2">a</span>
                   <span className="login-wordmark-letter login-wordmark-letter-3">t</span>
                   <span className="login-wordmark-letter login-wordmark-letter-4">e</span>
-                  <span className="login-wordmark-caret" />
                 </span>
               </p>
             </div>
