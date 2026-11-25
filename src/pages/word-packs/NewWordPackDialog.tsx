@@ -1,4 +1,5 @@
-import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
+import { useId, useRef, useState, type FormEvent } from 'react'
+import { useDialogBehavior } from '@/hooks/useDialogBehavior'
 
 const MAX_LENGTH = 30
 
@@ -9,60 +10,12 @@ type NewWordPackDialogProps = {
 
 export default function NewWordPackDialog({ onClose, onCreate }: NewWordPackDialogProps) {
   const [name, setName] = useState('')
-  const dialogRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const dialogRef = useDialogBehavior(onClose, inputRef)
   const baseId = useId()
   const titleId = `${baseId}-title`
   const nameId = `${baseId}-name`
   const counterId = `${baseId}-counter`
-
-  useEffect(() => {
-    const previouslyFocused =
-      document.activeElement instanceof HTMLElement ? document.activeElement : null
-    inputRef.current?.focus()
-
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onClose()
-        return
-      }
-      if (event.key !== 'Tab') return
-
-      const dialog = dialogRef.current
-      if (!dialog) return
-      const focusable = dialog.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
-      )
-      const first = focusable.item(0)
-      const last = focusable.item(focusable.length - 1)
-      if (!first || !last) {
-        event.preventDefault()
-        dialog.focus()
-        return
-      }
-
-      if (!dialog.contains(document.activeElement)) {
-        event.preventDefault()
-        const target = event.shiftKey ? last : first
-        target.focus()
-      } else if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault()
-        last.focus()
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault()
-        first.focus()
-      }
-    }
-    document.addEventListener('keydown', handleKeyDown)
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-      document.body.style.overflow = previousOverflow
-      if (previouslyFocused?.isConnected) previouslyFocused.focus()
-    }
-  }, [onClose])
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
