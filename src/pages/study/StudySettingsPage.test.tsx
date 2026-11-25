@@ -91,3 +91,36 @@ test('없는 단어팩이면 빈 상태를 보여준다', () => {
 
   expect(screen.getByRole('heading', { name: '단어팩을 찾을 수 없어요' })).toBeInTheDocument()
 })
+
+test('방향 축에서 화살표 키로 선택을 옮긴다', async () => {
+  const user = userEvent.setup()
+  renderPage()
+
+  const selected = screen.getByRole('radio', { name: '영어 보고 뜻 맞히기' })
+  selected.focus()
+  await user.keyboard('{ArrowRight}')
+
+  const next = screen.getByRole('radio', { name: '뜻 보고 영어 맞히기' })
+  expect(next).toHaveAttribute('aria-checked', 'true')
+  expect(next).toHaveFocus()
+  expect(summaryValue('방향')).toBe('한국어 → 영어')
+})
+
+test('학습 방식 축에서 화살표 키로 선택을 옮긴다', async () => {
+  const user = userEvent.setup()
+  renderPage()
+
+  screen.getByRole('radio', { name: /4지선다/ }).focus()
+  await user.keyboard('{ArrowLeft}')
+
+  expect(screen.getByRole('radio', { name: /플래시카드/ })).toHaveAttribute('aria-checked', 'true')
+  expect(summaryValue('방식')).toBe('플래시카드')
+})
+
+test('선택된 항목만 탭 순서에 들어간다', () => {
+  renderPage()
+
+  expect(screen.getByRole('radio', { name: '10문항' })).toHaveAttribute('tabindex', '0')
+  expect(screen.getByRole('radio', { name: '20문항' })).toHaveAttribute('tabindex', '-1')
+  expect(screen.getByRole('radio', { name: '전체 24' })).toHaveAttribute('tabindex', '-1')
+})
