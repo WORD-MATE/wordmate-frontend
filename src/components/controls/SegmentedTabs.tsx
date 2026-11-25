@@ -1,3 +1,5 @@
+import { handleRadioGroupKeys } from '@/components/controls/radioGroupKeys'
+
 export type SegmentedOption<T extends string> = {
   id: T
   label: string
@@ -20,6 +22,7 @@ export default function SegmentedTabs<T extends string>({
     <div
       role="radiogroup"
       aria-label={label}
+      onKeyDown={handleRadioGroupKeys}
       className="bg-background-subtle inline-flex gap-0.5 rounded-md p-[3px]"
     >
       {options.map((option) => {
@@ -31,6 +34,7 @@ export default function SegmentedTabs<T extends string>({
             type="button"
             role="radio"
             aria-checked={selected}
+            tabIndex={selected ? 0 : -1}
             onClick={() => onChange(option.id)}
             className={`flex h-8 items-center justify-center rounded-sm px-3.5 text-[13px] leading-[19.5px] font-bold ${
               selected

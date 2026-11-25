@@ -20,13 +20,14 @@ export default function LearningModeCard({
       type="button"
       role="radio"
       aria-checked={selected}
+      tabIndex={selected ? 0 : -1}
       onClick={onSelect}
       className={`flex h-[162.5px] flex-col items-start gap-1 rounded-lg border-[1.5px] border-transparent p-4 text-left ${
         selected ? 'bg-background-subtle' : 'bg-background-card'
       }`}
     >
       <span className="flex h-12 w-full items-start justify-between pb-2">
-        <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-[#e8e9ea]">
+        <span className="bg-background-icon flex size-10 shrink-0 items-center justify-center rounded-md">
           {icon}
         </span>
         <span
