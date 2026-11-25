@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ArrowLeftIcon, SearchIcon, StarSmallIcon } from '@/components/icons/WordmateIcons'
+import { useEnglishVoice } from '@/hooks/useEnglishVoice'
 import StudyStatusCard from '@/pages/word-packs/StudyStatusCard'
 import VocabularyRow from '@/pages/word-packs/VocabularyRow'
 import { paths } from '@/routes/paths'
@@ -23,7 +24,8 @@ export default function WordPackDetailPage() {
   const [keyword, setKeyword] = useState('')
   const [meaningHidden, setMeaningHidden] = useState(false)
   const [revealedIds, setRevealedIds] = useState<ReadonlySet<string>>(() => new Set())
-  const canSpeak = typeof window !== 'undefined' && 'speechSynthesis' in window
+  const englishVoice = useEnglishVoice()
+  const canSpeak = englishVoice !== null
   const detail = packId === wordPackDetail.id ? wordPackDetail : null
   const words = wordsByPack[packId] ?? EMPTY_WORDS
 
@@ -60,13 +62,14 @@ export default function WordPackDetailPage() {
 
   const playPronunciation = useCallback(
     (text: string) => {
-      if (!canSpeak) return
+      if (!englishVoice) return
       window.speechSynthesis.cancel()
       const utterance = new SpeechSynthesisUtterance(text)
-      utterance.lang = 'en-US'
+      utterance.voice = englishVoice
+      utterance.lang = englishVoice.lang
       window.speechSynthesis.speak(utterance)
     },
-    [canSpeak],
+    [englishVoice],
   )
 
   useEffect(() => {
