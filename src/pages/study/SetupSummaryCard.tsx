@@ -1,11 +1,13 @@
 import { useId } from 'react'
+import { Link } from 'react-router-dom'
 
 type SetupSummaryCardProps = {
   rows: { term: string; description: string }[]
   questionCount: number
+  startTo?: string
 }
 
-export default function SetupSummaryCard({ rows, questionCount }: SetupSummaryCardProps) {
+export default function SetupSummaryCard({ rows, questionCount, startTo }: SetupSummaryCardProps) {
   const titleId = useId()
 
   return (
@@ -28,12 +30,23 @@ export default function SetupSummaryCard({ rows, questionCount }: SetupSummaryCa
         ))}
       </dl>
 
-      <button
-        type="button"
-        className="bg-brand text-content-on-accent hover:bg-brand-strong h-12 w-full rounded-md px-5 text-[15px] leading-[22.5px] font-bold"
-      >
-        {questionCount}문항 시작하기
-      </button>
+      {startTo ? (
+        <Link
+          to={startTo}
+          className="bg-brand text-content-on-accent hover:bg-brand-strong flex h-12 w-full items-center justify-center rounded-md px-5 text-[15px] leading-[22.5px] font-bold"
+        >
+          {questionCount}문항 시작하기
+        </Link>
+      ) : (
+        <button
+          type="button"
+          disabled
+          title="이 학습 방식은 준비 중입니다."
+          className="bg-background-disabled text-content-muted h-12 w-full cursor-not-allowed rounded-md px-5 text-[15px] leading-[22.5px] font-bold"
+        >
+          {questionCount}문항 시작하기
+        </button>
+      )}
     </section>
   )
 }
