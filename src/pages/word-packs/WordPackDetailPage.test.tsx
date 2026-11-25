@@ -16,7 +16,7 @@ test('단어팩 이름과 학습 현황을 보여준다', () => {
 
   expect(screen.getByRole('heading', { name: '수능 필수 영단어 Day 12' })).toBeInTheDocument()
   expect(screen.getByText('학습 현황')).toBeInTheDocument()
-  expect(screen.getByRole('button', { name: '학습 시작' })).toBeInTheDocument()
+  expect(screen.getByRole('link', { name: '학습 시작' })).toBeInTheDocument()
   expect(screen.getByRole('button', { name: /전체/ })).toHaveAttribute('aria-pressed', 'true')
 })
 

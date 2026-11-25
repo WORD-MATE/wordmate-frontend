@@ -1,6 +1,9 @@
 import { useId } from 'react'
+import { Link } from 'react-router-dom'
+import { studySettingsPath } from '@/routes/paths'
 
 type StudyStatusCardProps = {
+  packId: string
   total: number
   memorized: number
   learning: number
@@ -8,6 +11,7 @@ type StudyStatusCardProps = {
 }
 
 export default function StudyStatusCard({
+  packId,
   total,
   memorized,
   learning,
@@ -67,14 +71,12 @@ export default function StudyStatusCard({
         ))}
       </ul>
 
-      <button
-        type="button"
-        disabled
-        title="학습 설정 화면은 준비 중입니다."
-        className="bg-brand text-content-on-accent h-12 w-full cursor-not-allowed rounded-md px-5 text-[15px] leading-[22.5px] font-bold tracking-[-0.15px] opacity-60"
+      <Link
+        to={studySettingsPath(packId)}
+        className="bg-brand text-content-on-accent hover:bg-brand-strong flex h-12 w-full items-center justify-center rounded-md px-5 text-[15px] leading-[22.5px] font-bold tracking-[-0.15px]"
       >
         학습 시작
-      </button>
+      </Link>
     </section>
   )
 }

@@ -15,6 +15,9 @@ import arrowRight16 from '@/assets/icons/arrow-right-16.svg'
 import avatar17 from '@/assets/icons/avatar-17.svg'
 import avatar19 from '@/assets/icons/avatar-19.svg'
 import check14 from '@/assets/icons/check-14.svg'
+import flashcards24 from '@/assets/icons/flashcards-24.svg'
+import keyboard24 from '@/assets/icons/keyboard-24.svg'
+import multipleChoice24 from '@/assets/icons/multiple-choice-24.svg'
 import chevronDown16 from '@/assets/icons/chevron-down-16.svg'
 import chevronRight18Alt from '@/assets/icons/chevron-right-18-alt.svg'
 import chevronRight18 from '@/assets/icons/chevron-right-18.svg'
@@ -168,4 +171,16 @@ export function StarFilledIcon() {
 
 export function StarSmallIcon() {
   return <img src={starSmall14} alt="" aria-hidden="true" width={14} height={14} />
+}
+
+export function FlashcardsIcon() {
+  return <img src={flashcards24} alt="" aria-hidden="true" width={24} height={24} />
+}
+
+export function MultipleChoiceIcon() {
+  return <img src={multipleChoice24} alt="" aria-hidden="true" width={24} height={24} />
+}
+
+export function KeyboardIcon() {
+  return <img src={keyboard24} alt="" aria-hidden="true" width={24} height={24} />
 }
