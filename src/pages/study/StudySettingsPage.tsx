@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import SegmentedTabs from '@/components/controls/SegmentedTabs'
+import { handleRadioGroupKeys } from '@/components/controls/radioGroupKeys'
+import SegmentedTabs, { type SegmentedOption } from '@/components/controls/SegmentedTabs'
 import {
   ArrowLeftIcon,
   FlashcardsIcon,
@@ -22,7 +23,7 @@ import {
 import { hasWordPackDetail, wordPackDetail, words } from '@/pages/word-packs/wordPackDetailData'
 import { paths, wordPackDetailPath } from '@/routes/paths'
 
-const modeIcon: Record<LearningModeId, React.ReactNode> = {
+const modeIcon: Record<LearningModeId, ReactNode> = {
   flashcards: <FlashcardsIcon />,
   'multiple-choice': <MultipleChoiceIcon />,
   typing: <KeyboardIcon />,
@@ -55,7 +56,14 @@ export default function StudySettingsPage() {
 
   const total = words.length
   const selectedMode = learningModes.find((item) => item.id === mode) ?? learningModes[0]
-  const questionCount = resolveQuestionCount(count, total)
+  const countOptions: SegmentedOption<QuestionCountId>[] = [
+    ...(['10', '20'] as const)
+      .filter((option) => Number(option) < total)
+      .map((option) => ({ id: option, label: `${option}문항` })),
+    { id: 'all' as const, label: `전체 ${total}` },
+  ]
+  const activeCount = countOptions.some((option) => option.id === count) ? count : 'all'
+  const questionCount = resolveQuestionCount(activeCount, total)
   const maxXp = selectedMode.xpPerCorrect * questionCount
 
   const summaryRows = [
@@ -95,6 +103,7 @@ export default function StudySettingsPage() {
             <div
               role="radiogroup"
               aria-label="학습 방식"
+              onKeyDown={handleRadioGroupKeys}
               className="desktop:grid-cols-3 grid grid-cols-1 gap-3 sm:grid-cols-2"
             >
               {learningModes.map((item) => (
@@ -123,12 +132,8 @@ export default function StudySettingsPage() {
             <h2 className={sectionHeadingClass}>문항 수</h2>
             <SegmentedTabs
               label="문항 수"
-              options={[
-                { id: '10', label: '10문항' },
-                { id: '20', label: '20문항' },
-                { id: 'all', label: `전체 ${total}` },
-              ]}
-              value={count}
+              options={countOptions}
+              value={activeCount}
               onChange={setCount}
             />
           </section>
