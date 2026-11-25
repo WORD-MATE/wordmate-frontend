@@ -67,7 +67,9 @@ export default function VocabularyRow({
           aria-label={`${word.word} 발음 듣기`}
           disabled={pronunciationDisabled}
           title={
-            pronunciationDisabled ? '이 브라우저에서는 발음 재생을 지원하지 않습니다.' : undefined
+            pronunciationDisabled
+              ? '영어 음성이 없어 발음을 재생할 수 없습니다. 운영체제에 영어 음성을 추가해주세요.'
+              : undefined
           }
           onClick={() => onPlayPronunciation(word.word)}
           className={`${iconButtonClass} disabled:cursor-not-allowed disabled:opacity-40`}
