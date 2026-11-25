@@ -215,6 +215,7 @@ export default function WordPackDetailPage() {
 
         <div className="desktop:order-none order-first">
           <StudyStatusCard
+            packId={packId}
             total={counts.all}
             memorized={counts.memorized}
             learning={counts.learning}
