@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { cleanup, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { paths } from '@/routes/paths'
@@ -138,4 +138,71 @@ test('뜻 가리기를 껐다 켜면 펼쳐 둔 뜻도 다시 가려진다', asy
   await user.click(toggle)
 
   expect(screen.getByText('버리다, 포기하다')).toHaveClass('text-transparent')
+})
+
+type FakeVoice = Pick<SpeechSynthesisVoice, 'name' | 'lang' | 'localService'>
+
+function stubSpeechSynthesis(voices: FakeVoice[]) {
+  const spoken: { text: string; voice: FakeVoice | null; lang: string }[] = []
+
+  class FakeUtterance {
+    text: string
+    voice: FakeVoice | null = null
+    lang = ''
+    constructor(text: string) {
+      this.text = text
+    }
+  }
+
+  vi.stubGlobal('SpeechSynthesisUtterance', FakeUtterance)
+  vi.stubGlobal('speechSynthesis', {
+    getVoices: () => voices,
+    speak: (utterance: FakeUtterance) =>
+      spoken.push({ text: utterance.text, voice: utterance.voice, lang: utterance.lang }),
+    cancel: () => {},
+    addEventListener: () => {},
+    removeEventListener: () => {},
+  })
+
+  return spoken
+}
+
+afterEach(() => {
+  // 언마운트 정리가 speechSynthesis를 쓰므로 스텁을 걷어내기 전에 먼저 돌린다.
+  cleanup()
+  vi.unstubAllGlobals()
+})
+
+test('영어 음성이 있으면 그 음성으로 읽는다', async () => {
+  const spoken = stubSpeechSynthesis([
+    { name: 'Heami', lang: 'ko-KR', localService: true },
+    { name: 'Microsoft Zira', lang: 'en-US', localService: true },
+  ])
+  const user = userEvent.setup()
+  renderPage()
+
+  const button = await waitFor(() => {
+    const found = screen.getByRole('button', { name: 'abandon 발음 듣기' })
+    expect(found).toBeEnabled()
+    return found
+  })
+  await user.click(button)
+
+  expect(spoken).toHaveLength(1)
+  expect(spoken[0].text).toBe('abandon')
+  expect(spoken[0].voice?.name).toBe('Microsoft Zira')
+  expect(spoken[0].lang).toBe('en-US')
+})
+
+test('영어 음성이 없으면 발음 버튼을 비활성화한다', () => {
+  const spoken = stubSpeechSynthesis([{ name: 'Heami', lang: 'ko-KR', localService: true }])
+  renderPage()
+
+  const button = screen.getByRole('button', { name: 'abandon 발음 듣기' })
+  expect(button).toBeDisabled()
+  expect(button).toHaveAttribute(
+    'title',
+    '영어 음성이 없어 발음을 재생할 수 없습니다. 운영체제에 영어 음성을 추가해주세요.',
+  )
+  expect(spoken).toHaveLength(0)
 })
