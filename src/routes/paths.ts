@@ -4,6 +4,7 @@ export const paths = {
   home: '/',
   wordPacks: '/word-packs',
   wordPackDetail: '/word-packs/:packId',
+  studySettings: '/word-packs/:packId/study',
   battle: '/battle',
   ranking: '/ranking',
   wrongNotes: '/wrong-notes',
@@ -13,3 +14,5 @@ export const paths = {
 } as const
 
 export const wordPackDetailPath = (packId: string) => `/word-packs/${packId}`
+
+export const studySettingsPath = (packId: string) => `/word-packs/${packId}/study`
