@@ -201,7 +201,7 @@ export default function WordPackDetailPage() {
           )}
         </div>
 
-        <div className="desktop:order-none order-first">
+        <div className="desktop:sticky desktop:top-22 desktop:order-none desktop:self-start order-first">
           <StudyStatusCard
             packId={packId}
             total={counts.all}
