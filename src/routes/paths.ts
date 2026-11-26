@@ -7,6 +7,7 @@ export const paths = {
   studySettings: '/word-packs/:packId/study',
   flashcardStudy: '/word-packs/:packId/study/flashcards',
   multipleChoiceStudy: '/word-packs/:packId/study/multiple-choice',
+  typingStudy: '/word-packs/:packId/study/typing',
   battle: '/battle',
   ranking: '/ranking',
   wrongNotes: '/wrong-notes',
@@ -23,3 +24,5 @@ export const flashcardStudyPath = (packId: string) => `/word-packs/${packId}/stu
 
 export const multipleChoiceStudyPath = (packId: string) =>
   `/word-packs/${packId}/study/multiple-choice`
+
+export const typingStudyPath = (packId: string) => `/word-packs/${packId}/study/typing`

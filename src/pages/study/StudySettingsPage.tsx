@@ -26,6 +26,7 @@ import {
   flashcardStudyPath,
   multipleChoiceStudyPath,
   paths,
+  typingStudyPath,
   wordPackDetailPath,
 } from '@/routes/paths'
 
@@ -73,13 +74,12 @@ export default function StudySettingsPage() {
   const maxXp = selectedMode.xpPerCorrect * questionCount
 
   const studyQuery = `?direction=${direction}&count=${questionCount}&shuffle=${shuffle ? '1' : '0'}`
-  const startBasePath =
-    mode === 'flashcards'
-      ? flashcardStudyPath(packId)
-      : mode === 'multiple-choice'
-        ? multipleChoiceStudyPath(packId)
-        : null
-  const startPath = startBasePath ? `${startBasePath}${studyQuery}` : undefined
+  const studyPathByMode: Record<LearningModeId, string> = {
+    flashcards: flashcardStudyPath(packId),
+    'multiple-choice': multipleChoiceStudyPath(packId),
+    typing: typingStudyPath(packId),
+  }
+  const startPath = `${studyPathByMode[mode]}${studyQuery}`
 
   const summaryRows = [
     { term: '방식', description: selectedMode.title },
