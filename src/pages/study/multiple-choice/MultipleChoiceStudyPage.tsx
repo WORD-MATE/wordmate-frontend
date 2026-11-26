@@ -6,7 +6,7 @@ import {
   CloseSmallIcon,
   Volume20Icon,
 } from '@/components/icons/WordmateIcons'
-import { useEnglishVoice } from '@/hooks/useEnglishVoice'
+import { useSpeakEnglish } from '@/hooks/useSpeakEnglish'
 import AnswerChoices from '@/pages/study/multiple-choice/AnswerChoices'
 import {
   buildQuestions,
@@ -16,29 +16,32 @@ import {
 import PauseStudyDialog from '@/pages/study/PauseStudyDialog'
 import StudyHeader from '@/pages/study/StudyHeader'
 import StudyResult from '@/pages/study/StudyResult'
-import { accuracyPercent, buildSessionWords, readStudySettings } from '@/pages/study/studySession'
+import {
+  accuracyPercent,
+  buildSessionWords,
+  readStudySettings,
+  type StudySettings,
+} from '@/pages/study/studySession'
+import { xpPerCorrect } from '@/pages/study/studySettingsData'
 import { hasWordPackDetail, wordPackDetail, words } from '@/pages/word-packs/wordPackDetailData'
 import { paths, wordPackDetailPath } from '@/routes/paths'
 
-const XP_PER_CORRECT = 1
+function buildRound(settings: StudySettings, only?: string[]) {
+  const session = only
+    ? words.filter((word) => only.includes(word.id))
+    : buildSessionWords(words, { count: settings.count, shuffle: settings.shuffle })
+
+  return buildQuestions(session, words, settings.direction)
+}
 
 export default function MultipleChoiceStudyPage() {
   const { packId = '' } = useParams()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
-  const englishVoice = useEnglishVoice()
+  const { speak, canSpeak, unavailableTitle } = useSpeakEnglish()
 
   const settings = useMemo(() => readStudySettings(searchParams, words.length), [searchParams])
-
-  const [round, setRound] = useState<{ key: number; only?: string[] }>({ key: 0 })
-  const questions = useMemo(() => {
-    const pool = round.only ? words.filter((word) => round.only?.includes(word.id)) : words
-    const session = round.only
-      ? pool
-      : buildSessionWords(words, { count: settings.count, shuffle: settings.shuffle })
-    return buildQuestions(session, words, settings.direction)
-    // round.key가 바뀌면 보기 순서를 새로 뽑는다.
-  }, [settings, round])
+  const [questions, setQuestions] = useState(() => buildRound(settings))
 
   const [index, setIndex] = useState(0)
   const [picked, setPicked] = useState<string | null>(null)
@@ -60,21 +63,10 @@ export default function MultipleChoiceStudyPage() {
   const goNext = useCallback(() => {
     if (picked === null) return
     setPicked(null)
-    setIndex((prev) => {
-      const next = prev + 1
-      if (next >= questions.length) setFinished(true)
-      return next
-    })
-  }, [picked, questions.length])
-
-  const speak = useCallback(() => {
-    if (!englishVoice || !current) return
-    window.speechSynthesis.cancel()
-    const utterance = new SpeechSynthesisUtterance(current.word.word)
-    utterance.voice = englishVoice
-    utterance.lang = englishVoice.lang
-    window.speechSynthesis.speak(utterance)
-  }, [englishVoice, current])
+    const next = index + 1
+    setIndex(next)
+    if (next >= questions.length) setFinished(true)
+  }, [index, picked, questions.length])
 
   useEffect(() => {
     if (finished || paused) return
@@ -99,7 +91,7 @@ export default function MultipleChoiceStudyPage() {
   }, [current, finished, goNext, paused, pick])
 
   const startRound = (only?: string[]) => {
-    setRound((prev) => ({ key: prev.key + 1, only }))
+    setQuestions(buildRound(settings, only))
     setIndex(0)
     setPicked(null)
     setResults([])
@@ -112,6 +104,17 @@ export default function MultipleChoiceStudyPage() {
         <h1 className="text-content text-xl font-bold">단어팩을 찾을 수 없어요</h1>
         <Link to={paths.wordPacks} className="text-content font-semibold underline">
           단어팩 목록으로
+        </Link>
+      </section>
+    )
+  }
+
+  if (questions.length === 0) {
+    return (
+      <section className="mx-auto flex w-full max-w-[1160px] flex-col items-center gap-3 py-20 text-center">
+        <h1 className="text-content text-xl font-bold">학습할 단어가 없어요</h1>
+        <Link to={wordPackDetailPath(packId)} className="text-content font-semibold underline">
+          단어팩으로 돌아가기
         </Link>
       </section>
     )
@@ -139,7 +142,7 @@ export default function MultipleChoiceStudyPage() {
           stats={[
             { label: '정답', value: String(correctCount) },
             { label: '오답', value: String(results.length - correctCount), tone: 'error' },
-            { label: '획득 XP', value: `+${correctCount * XP_PER_CORRECT}` },
+            { label: '획득 XP', value: `+${correctCount * xpPerCorrect('multiple-choice')}` },
           ]}
           items={results.map(({ question, correct }) => ({
             id: question.word.id,
@@ -190,13 +193,9 @@ export default function MultipleChoiceStudyPage() {
                 </span>
                 <button
                   type="button"
-                  onClick={speak}
-                  disabled={!englishVoice}
-                  title={
-                    englishVoice
-                      ? undefined
-                      : '영어 음성이 없어 발음을 재생할 수 없습니다. 운영체제에 영어 음성을 추가해주세요.'
-                  }
+                  onClick={() => speak(current.word.word)}
+                  disabled={!canSpeak}
+                  title={unavailableTitle}
                   aria-label={`${current.word.word} 발음 듣기`}
                   className="hover:bg-background-subtle flex size-10 shrink-0 items-center justify-center rounded-md disabled:cursor-not-allowed disabled:opacity-40"
                 >
