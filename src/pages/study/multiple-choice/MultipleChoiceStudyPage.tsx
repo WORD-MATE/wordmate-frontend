@@ -1,11 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
-import {
-  CheckIcon,
-  CloseIcon,
-  CloseSmallIcon,
-  Volume20Icon,
-} from '@/components/icons/WordmateIcons'
 import { useSpeakEnglish } from '@/hooks/useSpeakEnglish'
 import AnswerChoices from '@/pages/study/multiple-choice/AnswerChoices'
 import {
@@ -14,7 +8,10 @@ import {
   type Question,
 } from '@/pages/study/multiple-choice/multipleChoiceQuiz'
 import PauseStudyDialog from '@/pages/study/PauseStudyDialog'
+import StudyExitHeader from '@/pages/study/StudyExitHeader'
+import StudyFeedback from '@/pages/study/StudyFeedback'
 import StudyHeader from '@/pages/study/StudyHeader'
+import StudyPromptCard from '@/pages/study/StudyPromptCard'
 import StudyResult from '@/pages/study/StudyResult'
 import {
   accuracyPercent,
@@ -127,15 +124,7 @@ export default function MultipleChoiceStudyPage() {
   if (finished) {
     return (
       <div className="bg-background min-h-dvh">
-        <header className="flex h-18 items-center px-5 sm:px-8">
-          <Link
-            to={paths.home}
-            aria-label="홈으로"
-            className="hover:bg-background-subtle flex size-10 shrink-0 items-center justify-center rounded-md"
-          >
-            <CloseIcon />
-          </Link>
-        </header>
+        <StudyExitHeader />
         <StudyResult
           caption={caption}
           percent={accuracyPercent(correctCount, results.length)}
@@ -183,26 +172,14 @@ export default function MultipleChoiceStudyPage() {
 
         {current && (
           <>
-            <div className="bg-background-card flex flex-col items-center gap-2.5 rounded-lg px-6 pt-12 pb-10">
-              <p className="text-content-muted text-[13px] leading-[19.5px] font-semibold tracking-[-0.15px]">
-                {promptTitle(settings.direction)}
-              </p>
-              <p className="flex flex-wrap items-center justify-center gap-1 sm:pl-10">
-                <span className="text-content text-center text-[36px] leading-[44px] font-extrabold tracking-[-1.68px] sm:text-[48px] sm:leading-[55.2px]">
-                  {current.prompt}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => speak(current.word.word)}
-                  disabled={!canSpeak}
-                  title={unavailableTitle}
-                  aria-label={`${current.word.word} 발음 듣기`}
-                  className="hover:bg-background-subtle flex size-10 shrink-0 items-center justify-center rounded-md disabled:cursor-not-allowed disabled:opacity-40"
-                >
-                  <Volume20Icon />
-                </button>
-              </p>
-            </div>
+            <StudyPromptCard
+              title={promptTitle(settings.direction)}
+              prompt={current.prompt}
+              speakLabel={`${current.word.word} 발음 듣기`}
+              canSpeak={canSpeak}
+              unavailableTitle={unavailableTitle}
+              onSpeak={() => speak(current.word.word)}
+            />
 
             <div className="pt-4">
               <AnswerChoices
@@ -214,37 +191,11 @@ export default function MultipleChoiceStudyPage() {
             </div>
 
             {picked !== null && (
-              <div className="flex flex-col pt-6">
-                <div className="flex items-start gap-2.5 pb-3.5">
-                  <span
-                    className={`mt-0.5 flex size-[22px] shrink-0 items-center justify-center rounded-full ${
-                      picked === current.answer ? 'bg-brand' : 'bg-error'
-                    }`}
-                  >
-                    {picked === current.answer ? <CheckIcon /> : <CloseSmallIcon />}
-                  </span>
-                  <span>
-                    <span
-                      className={`block text-[15px] leading-[22px] font-bold tracking-[-0.15px] ${
-                        picked === current.answer ? 'text-content' : 'text-error'
-                      }`}
-                    >
-                      {picked === current.answer ? '정답이에요' : '아쉬워요, 오답노트에 담았어요'}
-                    </span>
-                    <span className="text-content-secondary block pt-0.5 text-sm leading-[21px] tracking-[-0.15px]">
-                      {current.word.example}
-                    </span>
-                  </span>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={goNext}
-                  className="bg-brand text-content-on-accent hover:bg-brand-strong h-14 w-full rounded-md px-5 text-base leading-6 font-bold"
-                >
-                  다음
-                </button>
-              </div>
+              <StudyFeedback
+                correct={picked === current.answer}
+                example={current.word.example}
+                onNext={goNext}
+              />
             )}
           </>
         )}

@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
-import { CloseIcon, VolumeIcon } from '@/components/icons/WordmateIcons'
+import { VolumeIcon } from '@/components/icons/WordmateIcons'
 import { useSpeakEnglish } from '@/hooks/useSpeakEnglish'
 import Flashcard from '@/pages/study/flashcards/Flashcard'
 import FlashcardResult from '@/pages/study/flashcards/FlashcardResult'
 import PauseStudyDialog from '@/pages/study/PauseStudyDialog'
+import StudyExitHeader from '@/pages/study/StudyExitHeader'
 import StudyHeader from '@/pages/study/StudyHeader'
 import {
   buildSessionWords,
@@ -99,15 +100,7 @@ export default function FlashcardStudyPage() {
   if (finished) {
     return (
       <div className="bg-background min-h-dvh">
-        <header className="flex h-18 items-center px-5 sm:px-8">
-          <Link
-            to={paths.home}
-            aria-label="홈으로"
-            className="hover:bg-background-subtle flex size-10 shrink-0 items-center justify-center rounded-md"
-          >
-            <CloseIcon />
-          </Link>
-        </header>
+        <StudyExitHeader />
         <FlashcardResult
           caption={caption}
           answers={sessionWords
