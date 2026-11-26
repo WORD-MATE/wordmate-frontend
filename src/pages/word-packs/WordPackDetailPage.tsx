@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ArrowLeftIcon, SearchIcon, StarSmallIcon } from '@/components/icons/WordmateIcons'
+import ToggleSwitch from '@/components/controls/ToggleSwitch'
 import { useEnglishVoice } from '@/hooks/useEnglishVoice'
 import StudyStatusCard from '@/pages/word-packs/StudyStatusCard'
 import VocabularyRow from '@/pages/word-packs/VocabularyRow'
@@ -170,28 +171,12 @@ export default function WordPackDetailPage() {
               />
             </div>
 
-            <label className="ml-auto flex shrink-0 items-center gap-2.5">
-              <span className="text-content-secondary text-[13px] leading-[19.5px] font-semibold tracking-[-0.15px]">
-                뜻 가리기
-              </span>
-              <input
-                type="checkbox"
-                checked={meaningHidden}
-                onChange={(event) => toggleMeaningHidden(event.target.checked)}
-                className="peer sr-only"
-              />
-              <span
-                className={`relative h-[26px] w-11 rounded-[13px] transition-colors ${
-                  meaningHidden ? 'bg-brand' : 'bg-background-disabled'
-                } peer-focus-visible:ring-content peer-focus-visible:ring-2 peer-focus-visible:ring-offset-2`}
-              >
-                <span
-                  className={`bg-background absolute top-[3px] size-5 rounded-[10px] transition-[left] ${
-                    meaningHidden ? 'left-[21px]' : 'left-[3px]'
-                  }`}
-                />
-              </span>
-            </label>
+            <ToggleSwitch
+              label="뜻 가리기"
+              className="ml-auto"
+              checked={meaningHidden}
+              onChange={toggleMeaningHidden}
+            />
           </div>
 
           {visibleWords.length === 0 ? (

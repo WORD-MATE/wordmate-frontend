@@ -2,6 +2,7 @@ import { useState, type ReactNode } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { handleRadioGroupKeys } from '@/components/controls/radioGroupKeys'
 import SegmentedTabs, { type SegmentedOption } from '@/components/controls/SegmentedTabs'
+import ToggleSwitch from '@/components/controls/ToggleSwitch'
 import {
   ArrowLeftIcon,
   FlashcardsIcon,
@@ -152,7 +153,7 @@ export default function StudySettingsPage() {
             />
           </section>
 
-          <label className="bg-background-card flex items-center justify-between rounded-lg px-5 py-4">
+          <div className="bg-background-card flex items-center justify-between rounded-lg px-5 py-4">
             <span className="flex flex-col">
               <span className="text-content text-[15px] leading-[22.5px] font-bold tracking-[-0.15px]">
                 순서 섞기
@@ -161,24 +162,8 @@ export default function StudySettingsPage() {
                 끄면 단어팩 순서대로 나와요
               </span>
             </span>
-            <input
-              type="checkbox"
-              checked={shuffle}
-              onChange={(event) => setShuffle(event.target.checked)}
-              className="sr-only"
-            />
-            <span
-              className={`relative h-[26px] w-11 shrink-0 rounded-[13px] transition-colors ${
-                shuffle ? 'bg-brand' : 'bg-background-disabled'
-              }`}
-            >
-              <span
-                className={`bg-background absolute top-[3px] size-5 rounded-[10px] transition-[left] ${
-                  shuffle ? 'left-[21px]' : 'left-[3px]'
-                }`}
-              />
-            </span>
-          </label>
+            <ToggleSwitch label="순서 섞기" labelHidden checked={shuffle} onChange={setShuffle} />
+          </div>
         </div>
 
         <div className="desktop:sticky desktop:top-22 desktop:order-none desktop:self-start order-first">

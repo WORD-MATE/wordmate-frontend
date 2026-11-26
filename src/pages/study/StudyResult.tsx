@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import ToggleSwitch from '@/components/controls/ToggleSwitch'
 import { CheckIcon, CloseSmallIcon } from '@/components/icons/WordmateIcons'
 import { resultHeadline } from '@/pages/study/studySession'
 import { paths } from '@/routes/paths'
@@ -110,28 +111,7 @@ export default function StudyResult({
             푼 단어 {items.length}
           </h2>
 
-          <label className="flex items-center gap-1.5">
-            <span className="text-content-secondary text-sm leading-[21px] tracking-[-0.15px]">
-              {filterLabel}
-            </span>
-            <input
-              type="checkbox"
-              checked={wrongOnly}
-              onChange={(event) => setWrongOnly(event.target.checked)}
-              className="sr-only"
-            />
-            <span
-              className={`relative h-[26px] w-11 shrink-0 rounded-[13px] transition-colors ${
-                wrongOnly ? 'bg-brand' : 'bg-background-disabled'
-              }`}
-            >
-              <span
-                className={`bg-background absolute top-[3px] size-5 rounded-[10px] transition-[left] ${
-                  wrongOnly ? 'left-[21px]' : 'left-[3px]'
-                }`}
-              />
-            </span>
-          </label>
+          <ToggleSwitch label={filterLabel} checked={wrongOnly} onChange={setWrongOnly} />
         </div>
 
         {visible.length === 0 ? (
