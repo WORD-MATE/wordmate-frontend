@@ -51,3 +51,6 @@ export const resolveQuestionCount = (count: QuestionCountId, total: number) =>
 
 export const estimatedMinutes = (questionCount: number) =>
   Math.max(1, Math.ceil((questionCount * SECONDS_PER_QUESTION) / 60))
+
+export const xpPerCorrect = (mode: LearningModeId) =>
+  learningModes.find((item) => item.id === mode)?.xpPerCorrect ?? 0
