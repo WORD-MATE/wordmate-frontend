@@ -69,7 +69,7 @@ test('마지막 카드까지 답하면 결과를 보여준다', async () => {
   await user.click(answerUnknown())
   await user.click(answerKnown())
 
-  expect(screen.getByRole('heading', { name: '수고했어요!' })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: '조금만 더 하면 돼요' })).toBeInTheDocument()
   expect(screen.getByText('67')).toBeInTheDocument()
   expect(screen.getByRole('heading', { name: '푼 단어 3' })).toBeInTheDocument()
 
