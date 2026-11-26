@@ -21,7 +21,12 @@ import {
   type QuestionCountId,
 } from '@/pages/study/studySettingsData'
 import { hasWordPackDetail, wordPackDetail, words } from '@/pages/word-packs/wordPackDetailData'
-import { flashcardStudyPath, paths, wordPackDetailPath } from '@/routes/paths'
+import {
+  flashcardStudyPath,
+  multipleChoiceStudyPath,
+  paths,
+  wordPackDetailPath,
+} from '@/routes/paths'
 
 const modeIcon: Record<LearningModeId, ReactNode> = {
   flashcards: <FlashcardsIcon />,
@@ -65,6 +70,15 @@ export default function StudySettingsPage() {
   const activeCount = countOptions.some((option) => option.id === count) ? count : 'all'
   const questionCount = resolveQuestionCount(activeCount, total)
   const maxXp = selectedMode.xpPerCorrect * questionCount
+
+  const studyQuery = `?direction=${direction}&count=${questionCount}&shuffle=${shuffle ? '1' : '0'}`
+  const startBasePath =
+    mode === 'flashcards'
+      ? flashcardStudyPath(packId)
+      : mode === 'multiple-choice'
+        ? multipleChoiceStudyPath(packId)
+        : null
+  const startPath = startBasePath ? `${startBasePath}${studyQuery}` : undefined
 
   const summaryRows = [
     { term: '방식', description: selectedMode.title },
@@ -168,15 +182,7 @@ export default function StudySettingsPage() {
         </div>
 
         <div className="desktop:sticky desktop:top-22 desktop:order-none desktop:self-start order-first">
-          <SetupSummaryCard
-            rows={summaryRows}
-            questionCount={questionCount}
-            startTo={
-              mode === 'flashcards'
-                ? `${flashcardStudyPath(packId)}?direction=${direction}&count=${questionCount}&shuffle=${shuffle ? '1' : '0'}`
-                : undefined
-            }
-          />
+          <SetupSummaryCard rows={summaryRows} questionCount={questionCount} startTo={startPath} />
         </div>
       </div>
     </div>

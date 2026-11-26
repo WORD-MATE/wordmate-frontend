@@ -31,7 +31,7 @@ test('기본값으로 4지선다 · 영어 → 한국어 · 10문항을 보여�
   expect(summaryValue('문항')).toBe('10문항 · 섞어서')
   expect(summaryValue('예상 시간')).toBe('약 1분')
   expect(summaryValue('최대 XP')).toBe('+10 XP')
-  expect(screen.getByRole('button', { name: '10문항 시작하기' })).toBeInTheDocument()
+  expect(screen.getByRole('link', { name: '10문항 시작하기' })).toBeInTheDocument()
 })
 
 test('학습 방식을 바꾸면 요약의 방식과 최대 XP가 바뀐다', async () => {
@@ -70,7 +70,7 @@ test('전체를 고르면 문항 수와 예상 시간, 버튼 라벨이 바뀐�
 
   expect(summaryValue('문항')).toBe('24문항 · 섞어서')
   expect(summaryValue('예상 시간')).toBe('약 3분')
-  expect(screen.getByRole('button', { name: '24문항 시작하기' })).toBeInTheDocument()
+  expect(screen.getByRole('link', { name: '24문항 시작하기' })).toBeInTheDocument()
 })
 
 test('순서 섞기를 끄면 순서대로로 바뀐다', async () => {
