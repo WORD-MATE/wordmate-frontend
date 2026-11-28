@@ -44,3 +44,9 @@ export function buildSessionWords(
 
 export const accuracyPercent = (known: number, total: number) =>
   total > 0 ? Math.round((known / total) * 100) : 0
+
+export function resultHeadline(percent: number) {
+  if (percent >= 90) return '아주 잘했어요!'
+  if (percent >= 70) return '잘했어요!'
+  return '조금만 더 하면 돼요'
+}

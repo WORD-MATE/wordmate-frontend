@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
-import { CloseIcon, VolumeIcon } from '@/components/icons/WordmateIcons'
-import { useEnglishVoice } from '@/hooks/useEnglishVoice'
+import { VolumeIcon } from '@/components/icons/WordmateIcons'
+import { useSpeakEnglish } from '@/hooks/useSpeakEnglish'
 import Flashcard from '@/pages/study/flashcards/Flashcard'
 import FlashcardResult from '@/pages/study/flashcards/FlashcardResult'
 import PauseStudyDialog from '@/pages/study/PauseStudyDialog'
+import StudyExitHeader from '@/pages/study/StudyExitHeader'
 import StudyHeader from '@/pages/study/StudyHeader'
 import {
   buildSessionWords,
@@ -18,15 +19,10 @@ export default function FlashcardStudyPage() {
   const { packId = '' } = useParams()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
-  const englishVoice = useEnglishVoice()
+  const { speak, canSpeak, unavailableTitle } = useSpeakEnglish()
 
   const settings = useMemo(() => readStudySettings(searchParams, words.length), [searchParams])
-  const [sessionKey, setSessionKey] = useState(0)
-  const sessionWords = useMemo(
-    // sessionKey가 바뀌면 섞인 순서를 새로 만든다.
-    () => (sessionKey >= 0 ? buildSessionWords(words, settings) : []),
-    [settings, sessionKey],
-  )
+  const [sessionWords, setSessionWords] = useState(() => buildSessionWords(words, settings))
 
   const [index, setIndex] = useState(0)
   const [flipped, setFlipped] = useState(false)
@@ -40,23 +36,12 @@ export default function FlashcardStudyPage() {
     (value: FlashcardAnswer) => {
       setAnswers((prev) => [...prev, value])
       setFlipped(false)
-      setIndex((prev) => {
-        const next = prev + 1
-        if (next >= sessionWords.length) setFinished(true)
-        return next
-      })
+      const next = index + 1
+      setIndex(next)
+      if (next >= sessionWords.length) setFinished(true)
     },
-    [sessionWords.length],
+    [index, sessionWords.length],
   )
-
-  const speak = useCallback(() => {
-    if (!englishVoice || !current) return
-    window.speechSynthesis.cancel()
-    const utterance = new SpeechSynthesisUtterance(current.word)
-    utterance.voice = englishVoice
-    utterance.lang = englishVoice.lang
-    window.speechSynthesis.speak(utterance)
-  }, [englishVoice, current])
 
   useEffect(() => {
     if (finished || paused) return
@@ -80,7 +65,7 @@ export default function FlashcardStudyPage() {
   }, [answer, finished, paused])
 
   const restart = () => {
-    setSessionKey((prev) => prev + 1)
+    setSessionWords(buildSessionWords(words, settings))
     setIndex(0)
     setFlipped(false)
     setAnswers([])
@@ -98,21 +83,24 @@ export default function FlashcardStudyPage() {
     )
   }
 
+  if (sessionWords.length === 0) {
+    return (
+      <section className="mx-auto flex w-full max-w-[1160px] flex-col items-center gap-3 py-20 text-center">
+        <h1 className="text-content text-xl font-bold">학습할 단어가 없어요</h1>
+        <Link to={wordPackDetailPath(packId)} className="text-content font-semibold underline">
+          단어팩으로 돌아가기
+        </Link>
+      </section>
+    )
+  }
+
   const caption = `${wordPackDetail.name} · 플래시카드`
   const solved = answers.length
 
   if (finished) {
     return (
       <div className="bg-background min-h-dvh">
-        <header className="flex h-18 items-center px-5 sm:px-8">
-          <Link
-            to={paths.home}
-            aria-label="홈으로"
-            className="hover:bg-background-subtle flex size-10 shrink-0 items-center justify-center rounded-md"
-          >
-            <CloseIcon />
-          </Link>
-        </header>
+        <StudyExitHeader />
         <FlashcardResult
           caption={caption}
           answers={sessionWords
@@ -143,13 +131,9 @@ export default function FlashcardStudyPage() {
         <div className="flex justify-end pt-2">
           <button
             type="button"
-            onClick={speak}
-            disabled={!englishVoice}
-            title={
-              englishVoice
-                ? undefined
-                : '영어 음성이 없어 발음을 재생할 수 없습니다. 운영체제에 영어 음성을 추가해주세요.'
-            }
+            onClick={() => current && speak(current.word)}
+            disabled={!canSpeak}
+            title={unavailableTitle}
             aria-label={current ? `${current.word} 발음 듣기` : '발음 듣기'}
             className="hover:bg-background-subtle flex size-10 shrink-0 items-center justify-center rounded-md disabled:cursor-not-allowed disabled:opacity-40"
           >
