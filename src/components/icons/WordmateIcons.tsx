@@ -15,6 +15,10 @@ import arrowRight16 from '@/assets/icons/arrow-right-16.svg'
 import avatar17 from '@/assets/icons/avatar-17.svg'
 import avatar19 from '@/assets/icons/avatar-19.svg'
 import check14 from '@/assets/icons/check-14.svg'
+import chevronRight18Alt2 from '@/assets/icons/chevron-right-18-alt-2.svg'
+import createRoom22 from '@/assets/icons/create-room-22.svg'
+import joinCode22 from '@/assets/icons/join-code-22.svg'
+import quickBattle22 from '@/assets/icons/quick-battle-22.svg'
 import flashcards24 from '@/assets/icons/flashcards-24.svg'
 import keyboard24 from '@/assets/icons/keyboard-24.svg'
 import multipleChoice24 from '@/assets/icons/multiple-choice-24.svg'
@@ -183,4 +187,24 @@ export function MultipleChoiceIcon() {
 
 export function KeyboardIcon() {
   return <img src={keyboard24} alt="" aria-hidden="true" width={24} height={24} />
+}
+
+export function QuickBattleIcon() {
+  return <img src={quickBattle22} alt="" aria-hidden="true" width={22} height={22} />
+}
+
+export function CreateRoomIcon() {
+  return <img src={createRoom22} alt="" aria-hidden="true" width={22} height={22} />
+}
+
+export function JoinCodeIcon() {
+  return <img src={joinCode22} alt="" aria-hidden="true" width={22} height={22} />
+}
+
+export function ChevronRightAlt2Icon() {
+  return <img src={chevronRight18Alt2} alt="" aria-hidden="true" width={18} height={18} />
+}
+
+export function PracticeIcon() {
+  return <img src={multipleChoice24} alt="" aria-hidden="true" width={24} height={24} />
 }
