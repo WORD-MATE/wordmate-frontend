@@ -1,4 +1,5 @@
 import { useId, useRef, useState, type KeyboardEvent } from 'react'
+import FilterChip from '@/components/controls/FilterChip'
 import { PlusIcon, SearchIcon } from '@/components/icons/WordmateIcons'
 import NewWordPackDialog from '@/pages/word-packs/NewWordPackDialog'
 import WordPackCard, { type WordPack } from '@/pages/word-packs/WordPackCard'
@@ -182,19 +183,13 @@ export default function WordPacksPage() {
             {tab === 'default' ? (
               <div role="group" aria-label="카테고리" className="flex flex-wrap gap-1.5">
                 {categories.map((item) => (
-                  <button
+                  <FilterChip
                     key={item}
-                    type="button"
-                    aria-pressed={category === item}
+                    selected={category === item}
                     onClick={() => setCategory(item)}
-                    className={`flex h-[34px] items-center rounded-sm px-3 text-[13px] leading-[19.5px] font-semibold ${
-                      category === item
-                        ? 'bg-content text-background'
-                        : 'bg-background-subtle text-content-secondary'
-                    }`}
                   >
                     {item}
-                  </button>
+                  </FilterChip>
                 ))}
               </div>
             ) : (
