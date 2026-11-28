@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import FilterChip from '@/components/controls/FilterChip'
 import { ArrowLeftIcon, SearchIcon, StarSmallIcon } from '@/components/icons/WordmateIcons'
 import { useEnglishVoice } from '@/hooks/useEnglishVoice'
 import StudyStatusCard from '@/pages/word-packs/StudyStatusCard'
@@ -138,22 +139,12 @@ export default function WordPackDetailPage() {
         <div className="min-w-0">
           <div role="group" aria-label="단어 상태" className="flex flex-wrap gap-1.5">
             {filters.map(({ id, label, dot, star }) => (
-              <button
-                key={id}
-                type="button"
-                aria-pressed={filter === id}
-                onClick={() => setFilter(id)}
-                className={`flex h-[34px] items-center gap-1.5 rounded-sm px-3 text-[13px] leading-[19.5px] font-semibold ${
-                  filter === id
-                    ? 'bg-content text-background'
-                    : 'bg-background-subtle text-content-secondary'
-                }`}
-              >
+              <FilterChip key={id} selected={filter === id} onClick={() => setFilter(id)}>
                 {dot && <span className={`size-2 rounded-sm ${dot}`} />}
                 {star && <StarSmallIcon />}
                 {label}
                 <span className="font-medium opacity-60">{counts[id]}</span>
-              </button>
+              </FilterChip>
             ))}
           </div>
 
