@@ -21,7 +21,7 @@ import {
   type QuestionCountId,
 } from '@/pages/study/studySettingsData'
 import { hasWordPackDetail, wordPackDetail, words } from '@/pages/word-packs/wordPackDetailData'
-import { paths, wordPackDetailPath } from '@/routes/paths'
+import { flashcardStudyPath, paths, wordPackDetailPath } from '@/routes/paths'
 
 const modeIcon: Record<LearningModeId, ReactNode> = {
   flashcards: <FlashcardsIcon />,
@@ -168,7 +168,15 @@ export default function StudySettingsPage() {
         </div>
 
         <div className="desktop:sticky desktop:top-22 desktop:order-none desktop:self-start order-first">
-          <SetupSummaryCard rows={summaryRows} questionCount={questionCount} />
+          <SetupSummaryCard
+            rows={summaryRows}
+            questionCount={questionCount}
+            startTo={
+              mode === 'flashcards'
+                ? `${flashcardStudyPath(packId)}?direction=${direction}&count=${questionCount}&shuffle=${shuffle ? '1' : '0'}`
+                : undefined
+            }
+          />
         </div>
       </div>
     </div>

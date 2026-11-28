@@ -15,6 +15,7 @@ import arrowRight16 from '@/assets/icons/arrow-right-16.svg'
 import avatar17 from '@/assets/icons/avatar-17.svg'
 import avatar19 from '@/assets/icons/avatar-19.svg'
 import check14 from '@/assets/icons/check-14.svg'
+import close22 from '@/assets/icons/close-22.svg'
 import flashcards24 from '@/assets/icons/flashcards-24.svg'
 import keyboard24 from '@/assets/icons/keyboard-24.svg'
 import multipleChoice24 from '@/assets/icons/multiple-choice-24.svg'
@@ -183,4 +184,8 @@ export function MultipleChoiceIcon() {
 
 export function KeyboardIcon() {
   return <img src={keyboard24} alt="" aria-hidden="true" width={24} height={24} />
+}
+
+export function CloseIcon() {
+  return <BoxedIcon src={close22} size={22} />
 }
