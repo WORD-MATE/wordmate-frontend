@@ -1,4 +1,10 @@
-import { accuracyPercent, buildSessionWords, readStudySettings } from '@/pages/study/studySession'
+import {
+  accuracyPercent,
+  buildSessionWords,
+  readStudySettings,
+  resultHeadline,
+} from '@/pages/study/studySession'
+import { xpPerCorrect } from '@/pages/study/studySettingsData'
 import type { VocabularyWord } from '@/pages/word-packs/wordPackDetailData'
 
 const word = (id: string): VocabularyWord => ({
@@ -58,4 +64,18 @@ test('정답률은 반올림한다', () => {
   expect(accuracyPercent(1, 3)).toBe(33)
   expect(accuracyPercent(2, 3)).toBe(67)
   expect(accuracyPercent(0, 0)).toBe(0)
+})
+
+test('모드별 정답당 XP는 학습 방식 표에서 가져온다', () => {
+  expect(xpPerCorrect('flashcards')).toBe(0)
+  expect(xpPerCorrect('multiple-choice')).toBe(1)
+  expect(xpPerCorrect('typing')).toBe(2)
+})
+
+test('정답률에 따라 결과 문구가 달라진다', () => {
+  expect(resultHeadline(100)).toBe('아주 잘했어요!')
+  expect(resultHeadline(90)).toBe('아주 잘했어요!')
+  expect(resultHeadline(70)).toBe('잘했어요!')
+  expect(resultHeadline(69)).toBe('조금만 더 하면 돼요')
+  expect(resultHeadline(0)).toBe('조금만 더 하면 돼요')
 })
